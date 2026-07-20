@@ -1,0 +1,29 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/beeper-desktop-api-openapi-original.yml
+docs: https://developers.beeper.com/desktop-api/authentication
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Bearer token authentication. Access token obtained via OAuth2 PKCE flow or created
+    in-app. Required for all API operations.
+  sources:
+  - openapi/beeper-desktop-api-openapi-original.yml
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: http://localhost:23373/oauth/authorize
+    tokenUrl: http://localhost:23373/oauth/token
+    scopes: 2
+  description: OAuth2 Authorization Code flow with PKCE for obtaining bearer access tokens.
+    Used by MCP servers to authenticate clients.
+  sources:
+  - openapi/beeper-desktop-api-openapi-original.yml
