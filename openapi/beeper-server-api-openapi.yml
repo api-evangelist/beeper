@@ -1,0 +1,286 @@
+openapi: 3.1.0
+info:
+  title: Beeper Desktop Accounts Server API
+  version: 5.0.0
+  description: 'Beeper Desktop''s local HTTP and WebSocket API. One auth flow and one chat shape work across WhatsApp, iMessage, Telegram, Slack, Matrix, Discord, Twitter/X, Signal, and more.
+
+
+    Beeper is built on the Matrix standard. Identifiers and rich text use Matrix conventions: `mxc://` and `localmxc://` URLs reference media on the Matrix homeserver and on this device''s local bridge respectively; message text is Matrix HTML on the wire; `@room` is a group-mention sentinel.
+
+
+    ## Quickstart
+
+    1. Discover the server with `GET /v1/info`. The Desktop API is local-only unless the user has enabled remote access.
+
+    2. Authenticate with an access token from Beeper Desktop, or run OAuth2 Authorization Code with PKCE under the OAuth tag.
+
+    3. Call `GET /v1/accounts` to see connected Chat Accounts, then `GET /v1/chats` for the unified inbox.
+
+
+    ## WebSocket
+
+    Connect to `/v1/ws` with the same Bearer token in the upgrade request. Browser `new WebSocket()` clients are not supported yet because browsers cannot set the Authorization header. After the server sends `ready`, send `{"type":"subscriptions.set","chatIDs":["*"]}` to receive every chat update, or pass specific chat IDs. The server replies with `subscriptions.updated`, then streams `chat.upserted`, `chat.deleted`, `message.upserted`, and `message.deleted`.
+
+
+    Delivery is at-most-once. There is no replay on reconnect, and `seq` is per connection. Refetch via HTTP after a disconnect to reconcile drift. Initial subscription state is empty; `subscriptions.set` replaces previous state; `["*"]` cannot be combined with specific chat IDs.
+
+
+    ## Conventions
+
+    - IDs and cursors are opaque strings.
+
+    - Timestamps are ISO 8601 with timezone, except OAuth fields that use Unix seconds per RFC.
+
+    - Pagination is `cursor` plus `direction=before|after`.
+
+    - Sends return a `pendingMessageID`; resolve it with `GET /v1/chats/{chatID}/messages/{messageID}` or wait for `message.upserted` over the WebSocket.
+
+    - Optional fields may be omitted when unknown. Nullable write fields use `null` as an explicit clear operation.
+
+    - Every response carries `X-Beeper-Desktop-Version` so clients can tell which app version produced it.'
+  termsOfService: https://www.beeper.com/terms
+  contact:
+    name: Beeper
+    email: help@beeper.com
+    url: https://www.beeper.com
+  license:
+    name: Proprietary
+    url: https://www.beeper.com/terms
+servers:
+- url: http://localhost:23373
+  description: Beeper Desktop API server
+security:
+- bearerAuth: []
+tags:
+- name: Server
+  description: Server discovery and capability metadata. Use /v1/info before authentication setup.
+paths:
+  /v1/info:
+    get:
+      summary: Retrieve server info
+      description: Returns app, platform, server, endpoint discovery, OAuth, and WebSocket metadata for this Beeper Desktop instance.
+      tags:
+      - Server
+      operationId: getInfo
+      security: []
+      responses:
+        '200':
+          description: Beeper Desktop API server info
+          headers:
+            X-Beeper-Desktop-Version:
+              $ref: '#/components/headers/X-Beeper-Desktop-Version'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectInfoOutput'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Machine-readable error code
+        details:
+          anyOf:
+          - type: object
+            properties:
+              issues:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: Validation issue code
+                      example: invalid_type
+                    message:
+                      type: string
+                      description: Human-readable description of the validation issue
+                    path:
+                      type: array
+                      items:
+                        anyOf:
+                        - type: string
+                          x-stainless-variantName: field
+                        - type: number
+                          x-stainless-variantName: index
+                      description: Path pointing to the invalid field within the payload
+                      example:
+                      - body
+                      - chatID
+                  required:
+                  - code
+                  - message
+                  - path
+                description: List of validation issues
+            required:
+            - issues
+            description: Validation error details
+            x-stainless-variantName: validation_details
+          - type: object
+            additionalProperties:
+              nullable: true
+              x-stainless-any: true
+            description: Additional error context
+            x-stainless-variantName: context
+          - nullable: true
+            description: Arbitrary details payload supplied by the server
+            x-stainless-any: true
+            x-stainless-variantName: arbitrary
+          - nullable: true
+          description: Additional error details for debugging
+      required:
+      - message
+      - code
+    ConnectInfoOutput:
+      type: object
+      properties:
+        app:
+          type: object
+          properties:
+            name:
+              type: string
+              description: App name
+            version:
+              type: string
+              description: App version
+            bundle_id:
+              type: string
+              description: App bundle identifier
+          required:
+          - name
+          - version
+          - bundle_id
+        platform:
+          type: object
+          properties:
+            os:
+              type: string
+              description: Operating system identifier
+            arch:
+              type: string
+              description: CPU architecture
+            release:
+              type: string
+              description: Runtime release version
+          required:
+          - os
+          - arch
+        server:
+          type: object
+          properties:
+            status:
+              type: string
+              description: Server status
+            base_url:
+              type: string
+              description: Base URL of the Beeper Desktop API server
+            port:
+              type: integer
+              description: Listening port
+            hostname:
+              type: string
+              description: Listening host
+            remote_access:
+              type: boolean
+              description: Whether remote access is enabled
+            mcp_enabled:
+              type: boolean
+              description: Whether MCP endpoint is enabled
+          required:
+          - status
+          - base_url
+          - port
+          - hostname
+          - remote_access
+          - mcp_enabled
+        endpoints:
+          type: object
+          properties:
+            oauth:
+              type: object
+              properties:
+                authorization_endpoint:
+                  type: string
+                  description: OAuth authorization endpoint
+                token_endpoint:
+                  type: string
+                  description: OAuth token endpoint
+                introspection_endpoint:
+                  type: string
+                  description: OAuth introspection endpoint
+                userinfo_endpoint:
+                  type: string
+                  description: OAuth userinfo endpoint
+                revocation_endpoint:
+                  type: string
+                  description: OAuth token revocation endpoint
+                registration_endpoint:
+                  type: string
+                  description: OAuth dynamic client registration endpoint
+              required:
+              - authorization_endpoint
+              - token_endpoint
+              - introspection_endpoint
+              - userinfo_endpoint
+              - revocation_endpoint
+              - registration_endpoint
+            spec:
+              type: string
+              description: OpenAPI spec endpoint
+            mcp:
+              type: string
+              description: MCP endpoint
+            ws_events:
+              type: string
+              description: WebSocket events endpoint
+          required:
+          - oauth
+          - spec
+          - mcp
+          - ws_events
+      required:
+      - app
+      - platform
+      - server
+      - endpoints
+  responses:
+    InternalServerError:
+      description: Internal server error
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  headers:
+    X-Beeper-Desktop-Version:
+      description: Beeper Desktop application version providing this response.
+      schema:
+        type: string
+        example: 4.0.0
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication. Access token obtained via OAuth2 PKCE flow or created in-app. Required for all API operations.
+    oauth2:
+      type: oauth2
+      description: OAuth2 Authorization Code flow with PKCE for obtaining bearer access tokens. Used by MCP servers to authenticate clients.
+      flows:
+        authorizationCode:
+          authorizationUrl: http://localhost:23373/oauth/authorize
+          tokenUrl: http://localhost:23373/oauth/token
+          scopes:
+            read: Read access to messages, chats, and accounts
+            write: Write access to send messages, edit messages, react to messages, archive chats, and set reminders
+externalDocs:
+  description: Beeper Desktop API Documentation
+  url: https://developers.beeper.com/desktop-api

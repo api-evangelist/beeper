@@ -1,0 +1,418 @@
+openapi: 3.1.0
+info:
+  title: Beeper Desktop Accounts Contacts API
+  version: 5.0.0
+  description: 'Beeper Desktop''s local HTTP and WebSocket API. One auth flow and one chat shape work across WhatsApp, iMessage, Telegram, Slack, Matrix, Discord, Twitter/X, Signal, and more.
+
+
+    Beeper is built on the Matrix standard. Identifiers and rich text use Matrix conventions: `mxc://` and `localmxc://` URLs reference media on the Matrix homeserver and on this device''s local bridge respectively; message text is Matrix HTML on the wire; `@room` is a group-mention sentinel.
+
+
+    ## Quickstart
+
+    1. Discover the server with `GET /v1/info`. The Desktop API is local-only unless the user has enabled remote access.
+
+    2. Authenticate with an access token from Beeper Desktop, or run OAuth2 Authorization Code with PKCE under the OAuth tag.
+
+    3. Call `GET /v1/accounts` to see connected Chat Accounts, then `GET /v1/chats` for the unified inbox.
+
+
+    ## WebSocket
+
+    Connect to `/v1/ws` with the same Bearer token in the upgrade request. Browser `new WebSocket()` clients are not supported yet because browsers cannot set the Authorization header. After the server sends `ready`, send `{"type":"subscriptions.set","chatIDs":["*"]}` to receive every chat update, or pass specific chat IDs. The server replies with `subscriptions.updated`, then streams `chat.upserted`, `chat.deleted`, `message.upserted`, and `message.deleted`.
+
+
+    Delivery is at-most-once. There is no replay on reconnect, and `seq` is per connection. Refetch via HTTP after a disconnect to reconcile drift. Initial subscription state is empty; `subscriptions.set` replaces previous state; `["*"]` cannot be combined with specific chat IDs.
+
+
+    ## Conventions
+
+    - IDs and cursors are opaque strings.
+
+    - Timestamps are ISO 8601 with timezone, except OAuth fields that use Unix seconds per RFC.
+
+    - Pagination is `cursor` plus `direction=before|after`.
+
+    - Sends return a `pendingMessageID`; resolve it with `GET /v1/chats/{chatID}/messages/{messageID}` or wait for `message.upserted` over the WebSocket.
+
+    - Optional fields may be omitted when unknown. Nullable write fields use `null` as an explicit clear operation.
+
+    - Every response carries `X-Beeper-Desktop-Version` so clients can tell which app version produced it.'
+  termsOfService: https://www.beeper.com/terms
+  contact:
+    name: Beeper
+    email: help@beeper.com
+    url: https://www.beeper.com
+  license:
+    name: Proprietary
+    url: https://www.beeper.com/terms
+servers:
+- url: http://localhost:23373
+  description: Beeper Desktop API server
+security:
+- bearerAuth: []
+tags:
+- name: Contacts
+  description: Per-account address book and network lookup. The same person can appear under multiple Accounts.
+paths:
+  /v1/accounts/{accountID}/contacts:
+    get:
+      summary: Search contacts
+      description: Search contacts on a specific account using merged account contacts, network search, and exact identifier lookup.
+      tags:
+      - Contacts
+      operationId: searchContacts
+      security:
+      - bearerAuth: []
+      parameters:
+      - schema:
+          type: string
+          description: Account ID this resource belongs to.
+        required: true
+        description: Account ID this resource belongs to.
+        name: accountID
+        in: path
+        examples:
+          AccountIDExample:
+            value: local-whatsapp_ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc
+            summary: Sample account ID
+      - schema:
+          type: string
+          minLength: 1
+          description: Text to search users by. Network-specific behavior.
+        required: true
+        description: Text to search users by. Network-specific behavior.
+        name: query
+        in: query
+      responses:
+        '200':
+          description: Request executed successfully
+          headers:
+            X-Beeper-Desktop-Version:
+              $ref: '#/components/headers/X-Beeper-Desktop-Version'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchContactsOutput'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/accounts/{accountID}/contacts/list:
+    get:
+      summary: List contacts
+      description: List merged contacts for a specific account with cursor-based pagination.
+      tags:
+      - Contacts
+      operationId: listContacts
+      security:
+      - bearerAuth: []
+      parameters:
+      - schema:
+          type: string
+          description: Account ID this resource belongs to.
+        required: true
+        description: Account ID this resource belongs to.
+        name: accountID
+        in: path
+        examples:
+          AccountIDExample:
+            value: local-whatsapp_ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc
+            summary: Sample account ID
+      - schema:
+          type: string
+          description: Opaque pagination cursor; do not inspect. Use together with 'direction'.
+          example: 1725489123456|c29tZUltc2dQYWdl
+          x-stainless-pagination-property:
+            purpose: next_cursor_param
+        required: false
+        description: Opaque pagination cursor; do not inspect. Use together with 'direction'.
+        name: cursor
+        in: query
+      - schema:
+          type: string
+          enum:
+          - after
+          - before
+          description: 'Pagination direction used with ''cursor'': ''before'' fetches older results, ''after'' fetches newer results. Defaults to ''before'' when only ''cursor'' is provided.'
+          example: before
+        required: false
+        description: 'Pagination direction used with ''cursor'': ''before'' fetches older results, ''after'' fetches newer results. Defaults to ''before'' when only ''cursor'' is provided.'
+        name: direction
+        in: query
+      - schema:
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 50
+          description: Maximum contacts to return per page.
+        required: false
+        description: Maximum contacts to return per page.
+        name: limit
+        in: query
+      - schema:
+          type: string
+          minLength: 1
+          description: Optional search query for blended contact lookup.
+        required: false
+        description: Optional search query for blended contact lookup.
+        name: query
+        in: query
+      responses:
+        '200':
+          description: Request executed successfully
+          headers:
+            X-Beeper-Desktop-Version:
+              $ref: '#/components/headers/X-Beeper-Desktop-Version'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListContactsOutput'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests - rate limit exceeded
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Unprocessable entity - validation error
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Internal server error
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ForbiddenError:
+      description: Access token does not have the required scope
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    SearchContactsOutput:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/User'
+            - description: A person on or reachable through Beeper. Values are best-effort and can vary by network.
+      required:
+      - items
+    ListContactsOutput:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/User'
+            - description: A person on or reachable through Beeper. Values are best-effort and can vary by network.
+          description: Merged contacts for the selected account.
+          x-stainless-pagination-property:
+            purpose: items
+        hasMore:
+          type: boolean
+          description: True if additional results can be fetched using the provided cursors.
+          x-stainless-pagination-property:
+            purpose: has_next_page
+        oldestCursor:
+          type: string
+          nullable: true
+          description: Cursor for fetching older results (use with direction='before'). Opaque string; do not inspect.
+          x-stainless-pagination-property:
+            purpose: next_cursor_field
+        newestCursor:
+          type: string
+          nullable: true
+          description: Cursor for fetching newer results (use with direction='after'). Opaque string; do not inspect.
+      required:
+      - items
+      - hasMore
+      - oldestCursor
+      - newestCursor
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Stable Beeper user ID. Use as the primary key when referencing a person.
+        username:
+          type: string
+          description: Human-readable handle if available (e.g., '@alice'). May be network-specific and not globally unique.
+        phoneNumber:
+          type: string
+          description: User's phone number in E.164 format (e.g., '+14155552671'). Omit if unknown.
+        email:
+          type: string
+          description: Email address if known. Not guaranteed verified.
+        fullName:
+          type: string
+          description: Display name as shown in clients (e.g., 'Alice Example'). May include emojis.
+        imgURL:
+          type: string
+          description: Avatar image URL if available. This may be a remote URL, Matrix media URL, data URL, or local filesystem URL depending on source and endpoint. May be temporary or local-only to this device; download promptly if durable access is needed.
+        cannotMessage:
+          type: boolean
+          description: True if Beeper cannot initiate messages to this user (e.g., blocked, network restriction, or no DM path). The user may still message you.
+        isSelf:
+          type: boolean
+          description: True if this user represents the authenticated account's own identity.
+      required:
+      - id
+      description: User the account belongs to.
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Machine-readable error code
+        details:
+          anyOf:
+          - type: object
+            properties:
+              issues:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: Validation issue code
+                      example: invalid_type
+                    message:
+                      type: string
+                      description: Human-readable description of the validation issue
+                    path:
+                      type: array
+                      items:
+                        anyOf:
+                        - type: string
+                          x-stainless-variantName: field
+                        - type: number
+                          x-stainless-variantName: index
+                      description: Path pointing to the invalid field within the payload
+                      example:
+                      - body
+                      - chatID
+                  required:
+                  - code
+                  - message
+                  - path
+                description: List of validation issues
+            required:
+            - issues
+            description: Validation error details
+            x-stainless-variantName: validation_details
+          - type: object
+            additionalProperties:
+              nullable: true
+              x-stainless-any: true
+            description: Additional error context
+            x-stainless-variantName: context
+          - nullable: true
+            description: Arbitrary details payload supplied by the server
+            x-stainless-any: true
+            x-stainless-variantName: arbitrary
+          - nullable: true
+          description: Additional error details for debugging
+      required:
+      - message
+      - code
+  headers:
+    X-Beeper-Desktop-Version:
+      description: Beeper Desktop application version providing this response.
+      schema:
+        type: string
+        example: 4.0.0
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication. Access token obtained via OAuth2 PKCE flow or created in-app. Required for all API operations.
+    oauth2:
+      type: oauth2
+      description: OAuth2 Authorization Code flow with PKCE for obtaining bearer access tokens. Used by MCP servers to authenticate clients.
+      flows:
+        authorizationCode:
+          authorizationUrl: http://localhost:23373/oauth/authorize
+          tokenUrl: http://localhost:23373/oauth/token
+          scopes:
+            read: Read access to messages, chats, and accounts
+            write: Write access to send messages, edit messages, react to messages, archive chats, and set reminders
+externalDocs:
+  description: Beeper Desktop API Documentation
+  url: https://developers.beeper.com/desktop-api

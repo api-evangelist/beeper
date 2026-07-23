@@ -1,0 +1,354 @@
+openapi: 3.1.0
+info:
+  title: Beeper Desktop Accounts API
+  version: 5.0.0
+  description: 'Beeper Desktop''s local HTTP and WebSocket API. One auth flow and one chat shape work across WhatsApp, iMessage, Telegram, Slack, Matrix, Discord, Twitter/X, Signal, and more.
+
+
+    Beeper is built on the Matrix standard. Identifiers and rich text use Matrix conventions: `mxc://` and `localmxc://` URLs reference media on the Matrix homeserver and on this device''s local bridge respectively; message text is Matrix HTML on the wire; `@room` is a group-mention sentinel.
+
+
+    ## Quickstart
+
+    1. Discover the server with `GET /v1/info`. The Desktop API is local-only unless the user has enabled remote access.
+
+    2. Authenticate with an access token from Beeper Desktop, or run OAuth2 Authorization Code with PKCE under the OAuth tag.
+
+    3. Call `GET /v1/accounts` to see connected Chat Accounts, then `GET /v1/chats` for the unified inbox.
+
+
+    ## WebSocket
+
+    Connect to `/v1/ws` with the same Bearer token in the upgrade request. Browser `new WebSocket()` clients are not supported yet because browsers cannot set the Authorization header. After the server sends `ready`, send `{"type":"subscriptions.set","chatIDs":["*"]}` to receive every chat update, or pass specific chat IDs. The server replies with `subscriptions.updated`, then streams `chat.upserted`, `chat.deleted`, `message.upserted`, and `message.deleted`.
+
+
+    Delivery is at-most-once. There is no replay on reconnect, and `seq` is per connection. Refetch via HTTP after a disconnect to reconcile drift. Initial subscription state is empty; `subscriptions.set` replaces previous state; `["*"]` cannot be combined with specific chat IDs.
+
+
+    ## Conventions
+
+    - IDs and cursors are opaque strings.
+
+    - Timestamps are ISO 8601 with timezone, except OAuth fields that use Unix seconds per RFC.
+
+    - Pagination is `cursor` plus `direction=before|after`.
+
+    - Sends return a `pendingMessageID`; resolve it with `GET /v1/chats/{chatID}/messages/{messageID}` or wait for `message.upserted` over the WebSocket.
+
+    - Optional fields may be omitted when unknown. Nullable write fields use `null` as an explicit clear operation.
+
+    - Every response carries `X-Beeper-Desktop-Version` so clients can tell which app version produced it.'
+  termsOfService: https://www.beeper.com/terms
+  contact:
+    name: Beeper
+    email: help@beeper.com
+    url: https://www.beeper.com
+  license:
+    name: Proprietary
+    url: https://www.beeper.com/terms
+servers:
+- url: http://localhost:23373
+  description: Beeper Desktop API server
+security:
+- bearerAuth: []
+tags:
+- name: Accounts
+  description: Chat Accounts connected to this Beeper Desktop instance. Each Account owns a bridge and network.
+paths:
+  /v1/accounts:
+    get:
+      summary: List Chat Accounts
+      description: List Chat Accounts connected to this Beeper Desktop instance, including bridge metadata and network identity.
+      tags:
+      - Accounts
+      operationId: getAccounts
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Request executed successfully
+          headers:
+            X-Beeper-Desktop-Version:
+              $ref: '#/components/headers/X-Beeper-Desktop-Version'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAccountsOutput'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests - rate limit exceeded
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Unprocessable entity - validation error
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Internal server error
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ForbiddenError:
+      description: Access token does not have the required scope
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    GetAccountsOutput:
+      type: array
+      items:
+        $ref: '#/components/schemas/Account'
+      description: Accounts configured on this device. Includes accountID, bridge metadata, optional network name, and user identity.
+      example:
+      - accountID: matrix
+        bridge:
+          id: matrix
+          type: matrix
+          provider: cloud
+        network: Beeper
+        user:
+          id: '@batuhan:beeper.com'
+          username: batuhan:beeper.com
+          email: batuhan@example.com
+          fullName: Batuhan İçöz
+          isSelf: true
+      - accountID: discordgo
+        bridge:
+          id: discordgo
+          type: discordgo
+          provider: cloud
+        network: Discord
+        user:
+          id: '221590782384013314'
+          username: batuhanicoz
+          fullName: Batuhan İçöz
+          imgURL: file:///Users/batuhan/Library/Application%20Support/BeeperTexts/media/local.beeper.com/batuhan_jmaNwqQPUITme6VV5OSXhH3ZYpmi9UyaYQ43S2UA9qkkzy11Q9JUAiv8TYmOkoQr
+          isSelf: true
+      - accountID: local-whatsapp_ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc
+        bridge:
+          id: local-whatsapp
+          type: whatsapp
+          provider: local
+        network: WhatsApp
+        user:
+          id: ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc
+          phoneNumber: '+15550101001'
+          fullName: Batuhan İçöz
+          imgURL: file:///Users/batuhan/Library/Application%20Support/BeeperTexts/media/localhostlocal-whatsapp/_gkBAAAAB1xsnfQKMTcwOTkzODU5MAkBAAAAB1xsnfQ
+          isSelf: true
+    Bridge:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Bridge instance identifier. Matrix and cloud bridges often use the bridge type (for example matrix or discordgo); local bridges use a local bridge ID (for example local-whatsapp). Available in Beeper Desktop v4.2.785+.
+        type:
+          type: string
+          description: Bridge type, such as matrix, discordgo, slackgo, whatsapp, telegram, or twitter. Available in Beeper Desktop v4.2.785+.
+        provider:
+          type: string
+          enum:
+          - cloud
+          - self-hosted
+          - local
+          - platform-sdk
+          description: Bridge provider for the account. Available in Beeper Desktop v4.2.785+.
+      required:
+      - id
+      - type
+      - provider
+      description: Bridge metadata for the account. Available in Beeper Desktop v4.2.785+.
+      x-beeper-available-since: Beeper Desktop v4.2.785+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Stable Beeper user ID. Use as the primary key when referencing a person.
+        username:
+          type: string
+          description: Human-readable handle if available (e.g., '@alice'). May be network-specific and not globally unique.
+        phoneNumber:
+          type: string
+          description: User's phone number in E.164 format (e.g., '+14155552671'). Omit if unknown.
+        email:
+          type: string
+          description: Email address if known. Not guaranteed verified.
+        fullName:
+          type: string
+          description: Display name as shown in clients (e.g., 'Alice Example'). May include emojis.
+        imgURL:
+          type: string
+          description: Avatar image URL if available. This may be a remote URL, Matrix media URL, data URL, or local filesystem URL depending on source and endpoint. May be temporary or local-only to this device; download promptly if durable access is needed.
+        cannotMessage:
+          type: boolean
+          description: True if Beeper cannot initiate messages to this user (e.g., blocked, network restriction, or no DM path). The user may still message you.
+        isSelf:
+          type: boolean
+          description: True if this user represents the authenticated account's own identity.
+      required:
+      - id
+      description: User the account belongs to.
+    Account:
+      type: object
+      properties:
+        accountID:
+          type: string
+          description: Chat account added to Beeper. Use this to route account-scoped actions. Examples include matrix for Beeper/Matrix, discordgo for a cloud bridge, slackgo.TEAM-USER for workspace-scoped cloud bridges, and local-whatsapp_ba_... for local bridges.
+        bridge:
+          $ref: '#/components/schemas/Bridge'
+        network:
+          type: string
+          description: Human-friendly network name for the account. Omitted when the network is unknown.
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - accountID
+      - bridge
+      - user
+      description: A chat account added to Beeper.
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Machine-readable error code
+        details:
+          anyOf:
+          - type: object
+            properties:
+              issues:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: Validation issue code
+                      example: invalid_type
+                    message:
+                      type: string
+                      description: Human-readable description of the validation issue
+                    path:
+                      type: array
+                      items:
+                        anyOf:
+                        - type: string
+                          x-stainless-variantName: field
+                        - type: number
+                          x-stainless-variantName: index
+                      description: Path pointing to the invalid field within the payload
+                      example:
+                      - body
+                      - chatID
+                  required:
+                  - code
+                  - message
+                  - path
+                description: List of validation issues
+            required:
+            - issues
+            description: Validation error details
+            x-stainless-variantName: validation_details
+          - type: object
+            additionalProperties:
+              nullable: true
+              x-stainless-any: true
+            description: Additional error context
+            x-stainless-variantName: context
+          - nullable: true
+            description: Arbitrary details payload supplied by the server
+            x-stainless-any: true
+            x-stainless-variantName: arbitrary
+          - nullable: true
+          description: Additional error details for debugging
+      required:
+      - message
+      - code
+  headers:
+    X-Beeper-Desktop-Version:
+      description: Beeper Desktop application version providing this response.
+      schema:
+        type: string
+        example: 4.0.0
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication. Access token obtained via OAuth2 PKCE flow or created in-app. Required for all API operations.
+    oauth2:
+      type: oauth2
+      description: OAuth2 Authorization Code flow with PKCE for obtaining bearer access tokens. Used by MCP servers to authenticate clients.
+      flows:
+        authorizationCode:
+          authorizationUrl: http://localhost:23373/oauth/authorize
+          tokenUrl: http://localhost:23373/oauth/token
+          scopes:
+            read: Read access to messages, chats, and accounts
+            write: Write access to send messages, edit messages, react to messages, archive chats, and set reminders
+externalDocs:
+  description: Beeper Desktop API Documentation
+  url: https://developers.beeper.com/desktop-api
