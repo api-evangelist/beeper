@@ -1,0 +1,19 @@
+generated: '2026-07-18'
+method: searched
+source: https://developers.beeper.com/ + https://beeper.com/changelog + https://beeperstatus.com/
+versioning:
+  scheme: uri-path
+  current: v1
+  api_release: 5.0.0
+  note: >-
+    REST paths are under /v1/; the OpenAPI/SDK package release line is 5.0.0.
+    The MCP transport is mounted at /v0/mcp.
+changelog: https://beeper.com/changelog
+status_page: https://beeperstatus.com/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No formal published API deprecation/Sunset policy found as of this pass.
+sla:
+  url: null
+deprecated_operations: []

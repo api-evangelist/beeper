@@ -1,0 +1,26 @@
+{
+  "provider": "beeper",
+  "sources": [
+    "beeper-accounts-api-openapi.yml",
+    "beeper-app-api-openapi.yml",
+    "beeper-chats-api-openapi.yml",
+    "beeper-contacts-api-openapi.yml",
+    "beeper-files-api-openapi.yml",
+    "beeper-messages-api-openapi.yml",
+    "beeper-server-api-openapi.yml"
+  ],
+  "outputs": [
+    "beeper-accounts-api-openapi.yml",
+    "beeper-app-api-openapi.yml",
+    "beeper-chats-api-openapi.yml",
+    "beeper-contacts-api-openapi.yml",
+    "beeper-files-api-openapi.yml",
+    "beeper-messages-api-openapi.yml",
+    "beeper-server-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

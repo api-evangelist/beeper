@@ -1,27 +1,203 @@
 aid: beeper
 name: Beeper
-description: 'Beeper is a company surfaced as a portfolio company of initialized-capital and added to
-  the API Evangelist network as a stub for enrichment. Sector: consumer. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: >-
+  Beeper is a universal chat app that brings 12+ messaging networks — WhatsApp, Instagram,
+  Telegram, Signal, Messenger, X, Google Messages, Google Chat, Google Voice, LinkedIn,
+  Discord and Slack — into a single unified inbox across macOS, Windows, Linux, iOS and
+  Android. Built on the Matrix protocol and owned by Automattic, Beeper connects to networks
+  on-device for privacy. For developers Beeper ships the Beeper Desktop API: a local-first
+  REST API and built-in Model Context Protocol (MCP) server that runs entirely on the user's
+  machine, letting agents and apps search chats, read and send messages, react, manage
+  reminders and control the app. Official SDKs are published for JavaScript, Python, Go and
+  PHP, alongside bridges for self-hosting and Android intents/content-providers.
 url: https://raw.githubusercontent.com/api-evangelist/beeper/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.beeper.com/wp-content/themes/beeper-site/assets/img/opengraph-image.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - initialized-capital
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enrichment-pipeline
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
 - Consumer
-apis: []
+- Messaging
+- Chat
+- Communication
+- Matrix
+- MCP
+- Desktop
+- Aggregator
+apis:
+- aid: beeper:beeper-accounts-api
+  name: Beeper Accounts API
+  description: >-
+    Chat Accounts connected to this Beeper Desktop instance. Each Account owns a bridge and network.
+  humanURL: https://developers.beeper.com/desktop-api/
+  baseURL: http://localhost:23373
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/beeper-accounts-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/beeper-events-asyncapi.yml
+- aid: beeper:beeper-app-api
+  name: Beeper App API
+  description: >-
+    Top-level actions: focus the app window, jump to a chat, or run unified search across chats and messages.
+  humanURL: https://developers.beeper.com/desktop-api/
+  baseURL: http://localhost:23373
+  tags:
+  - App
+  properties:
+  - type: OpenAPI
+    url: openapi/beeper-app-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/beeper-events-asyncapi.yml
+- aid: beeper:beeper-chats-api
+  name: Beeper Chats API
+  description: >-
+    Chats, reminders, read state, archive state, priority, mute, and other conversation metadata.
+  humanURL: https://developers.beeper.com/desktop-api/
+  baseURL: http://localhost:23373
+  tags:
+  - Chats
+  properties:
+  - type: OpenAPI
+    url: openapi/beeper-chats-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/beeper-events-asyncapi.yml
+- aid: beeper:beeper-contacts-api
+  name: Beeper Contacts API
+  description: >-
+    Per-account address book and network lookup. The same person can appear under multiple Accounts.
+  humanURL: https://developers.beeper.com/desktop-api/
+  baseURL: http://localhost:23373
+  tags:
+  - Contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/beeper-contacts-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/beeper-events-asyncapi.yml
+- aid: beeper:beeper-files-api
+  name: Beeper Files API
+  description: File upload, download, and streaming helpers for message attachments and drafts.
+  humanURL: https://developers.beeper.com/desktop-api/
+  baseURL: http://localhost:23373
+  tags:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/beeper-files-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/beeper-events-asyncapi.yml
+- aid: beeper:beeper-messages-api
+  name: Beeper Messages API
+  description: 'Messages inside a Chat: list, search, send, retrieve, edit, delete, and react.'
+  humanURL: https://developers.beeper.com/desktop-api/
+  baseURL: http://localhost:23373
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/beeper-messages-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/beeper-events-asyncapi.yml
+- aid: beeper:beeper-server-api
+  name: Beeper Server API
+  description: Server discovery and capability metadata. Use /v1/info before authentication setup.
+  humanURL: https://developers.beeper.com/desktop-api/
+  baseURL: http://localhost:23373
+  tags:
+  - Server
+  properties:
+  - type: OpenAPI
+    url: openapi/beeper-server-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/beeper-events-asyncapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DeveloperPortal
+  url: https://developers.beeper.com/
+- type: Documentation
+  url: https://developers.beeper.com/desktop-api/
+- type: APIReference
+  url: https://developers.beeper.com/desktop-api-reference/
+- type: GettingStarted
+  url: https://developers.beeper.com/desktop-api/
+- type: Authentication
+  url: authentication/beeper-authentication.yml
+- type: OAuthScopes
+  url: scopes/beeper-scopes.yml
+- type: SDKs
+  url: packages/beeper-packages.yml
+- type: Packages
+  url: packages/beeper-packages.yml
+- type: MCPServer
+  url: mcp/beeper-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/beeper-agentic-access.yml
+- type: Conventions
+  url: conventions/beeper-conventions.yml
+- type: ErrorCatalog
+  url: errors/beeper-problem-types.yml
+- type: DataModel
+  url: data-model/beeper-data-model.yml
+- type: Conformance
+  url: conformance/beeper-conformance.yml
+- type: AsyncAPI
+  url: asyncapi/beeper-events-asyncapi.yml
+- type: Webhooks
+  url: asyncapi/beeper-events-asyncapi.yml
+- type: Lifecycle
+  url: lifecycle/beeper-lifecycle.yml
+- type: StatusPage
+  url: https://beeperstatus.com/
+- type: ChangeLog
+  url: changelog/beeper-changelog.yml
+- type: LLMsTxt
+  url: llms/beeper-llms.txt
+- type: DomainSecurity
+  url: security/beeper-domain-security.yml
+- type: GitHubOrganization
+  url: https://github.com/beeper
+- type: Blog
+  url: https://blog.beeper.com/
+- type: Support
+  url: https://help.beeper.com/
+- type: SignUp
+  url: https://www.beeper.com/download
+- type: TermsOfService
+  url: https://www.beeper.com/terms
+- type: PrivacyPolicy
+  url: https://www.beeper.com/privacy
 - type: Website
   url: https://beeper.com/
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

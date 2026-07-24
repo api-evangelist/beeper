@@ -1,0 +1,52 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/beeper-desktop-api-openapi-original.yml
+entities:
+- name: Account
+  description: A connected messaging network account (WhatsApp, Signal, Telegram, etc.) bridged into Beeper.
+  id_field: accountID
+- name: Chat
+  description: A conversation (DM or group) within an account.
+  id_field: chatID
+- name: Message
+  description: A single message within a chat, with attachments and reactions.
+  id_field: messageID
+- name: User
+  description: A participant / contact within an account.
+- name: Reaction
+  description: An emoji reaction applied to a message by a user.
+  id_field: reactionKey
+- name: Attachment
+  description: A media/file asset attached to a message.
+- name: Draft
+  description: An unsent message draft associated with a chat.
+relationships:
+- from: Chat
+  to: Account
+  type: belongs_to
+  via: accountID
+- from: Chat
+  to: Message
+  type: has_many
+  via: chatID
+- from: Message
+  to: Chat
+  type: belongs_to
+  via: chatID
+- from: Message
+  to: Reaction
+  type: has_many
+  via: messageID
+- from: Message
+  to: Attachment
+  type: has_many
+- from: Reaction
+  to: User
+  type: belongs_to
+- from: Chat
+  to: User
+  type: has_many
+  via: participants
+- from: Account
+  to: User
+  type: has_many

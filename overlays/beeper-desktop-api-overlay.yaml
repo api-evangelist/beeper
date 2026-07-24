@@ -1,0 +1,27 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Beeper Desktop API
+  version: 1.0.0
+extends: openapi/beeper-desktop-api-openapi-original.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-18'
+    x-api-type: local-desktop
+    x-agent-ready: true
+    x-mcp-server: http://localhost:23373/v0/mcp
+- target: $.info
+  update:
+    x-links:
+      developerPortal: https://developers.beeper.com/
+      documentation: https://developers.beeper.com/desktop-api/
+      changelog: https://beeper.com/changelog
+      statusPage: https://beeperstatus.com/
+      github: https://github.com/beeper
+- target: $.info
+  update:
+    x-conventions:
+      auth: bearer token (OAuth2 PKCE or in-app token)
+      pagination: opaque cursor + direction (Cursor schema)
+      events: WebSocket domain events at ws://localhost:23373/v1/ws
+      error_envelope: "{ message, code, details }"

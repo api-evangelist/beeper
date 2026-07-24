@@ -1,0 +1,35 @@
+generated: '2026-07-18'
+method: searched
+source: https://beeper.com/changelog
+scheme: semver-per-platform
+note: >-
+  Beeper publishes a dated product changelog per client (Desktop, Android, iOS).
+  The Desktop client hosts the local Desktop API; the API/SDK release line is 5.0.0.
+current:
+  desktop: 4.2.985
+  api_sdk: 5.0.0
+entries:
+- platform: Android
+  version: v4.50.0
+  date: '2026-07-15'
+  highlight: Brand new Inbox experience with refreshed design and customizable navigation.
+- platform: Desktop
+  version: v4.2.985
+  date: '2026-07-15'
+  highlight: Fixed media storage calculations and message loading after accepting requests.
+- platform: iOS
+  version: v4.2.7
+  date: '2026-07-10'
+  highlight: Copy links in the Media Browser plus search improvements.
+- platform: Android
+  version: v4.49.1
+  date: '2026-07-08'
+  highlight: Fixed sign-in flow and improved voice message recording error handling.
+- platform: Desktop
+  version: v4.2.972
+  date: '2026-07-08'
+  highlight: Repeat notification options and new reminder buttons for Plus subscribers.
+- platform: Desktop
+  version: v4.2.957
+  date: '2026-07-02'
+  highlight: Bulk chat action buttons and fixed profile display inconsistencies.

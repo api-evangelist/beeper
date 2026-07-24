@@ -1,0 +1,32 @@
+generated: '2026-07-18'
+method: searched
+status: published
+source: https://developers.beeper.com/desktop-api/mcp/
+server:
+  name: beeper
+  description: >-
+    Beeper Desktop ships a built-in Model Context Protocol server that runs
+    locally inside the Beeper Desktop app, exposing the user's unified chats,
+    messages, contacts and accounts to MCP clients (Claude Desktop, Cursor,
+    VS Code, Codex, Raycast). Runs entirely on-device.
+  transport: http
+  url: http://localhost:23373/v0/mcp
+  alt_transports:
+  - transport: sse
+    url: http://localhost:23373/v0/sse
+  - transport: stdio
+    command: npx -y @beeper/mcp-remote
+    package: "@beeper/mcp-remote"
+  auth:
+    schemes: [oauth2, bearer]
+    oauth2: OAuth 2.0 Authorization Code + PKCE (handled automatically over Streamable HTTP)
+    bearer: "Authorization: Bearer <access_token> (token created in-app or via OAuth)"
+install:
+  claude_code: claude mcp add beeper http://localhost:23373/v0/mcp -t http -s user
+  codex: codex mcp add beeper --url http://localhost:23373/v0/mcp
+  vs_code: code --add-mcp
+tools_note: >-
+  The MCP server surfaces the same capabilities as the Beeper Desktop REST API
+  (search chats/messages/contacts, send/edit/react to messages, manage chats,
+  set reminders, control the app). Tool list is served dynamically by the running
+  server; canonical operation surface is captured in openapi/beeper-desktop-api-openapi-original.yml.

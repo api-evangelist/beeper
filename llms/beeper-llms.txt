@@ -1,0 +1,11 @@
+# Beeper Developer Docs
+
+## Documentation Sets
+
+- [Abridged documentation](https://developers.beeper.com/llms-small.txt): a compact version of the documentation for Beeper Developer Docs, with non-essential content removed
+- [Complete documentation](https://developers.beeper.com/llms-full.txt): the full documentation for Beeper Developer Docs
+
+## Notes
+
+- The complete documentation includes all content from the official documentation
+- The content is automatically generated from the same source as the official documentation

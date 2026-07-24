@@ -1,0 +1,37 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/beeper-desktop-api-openapi-original.yml
+format: custom
+envelope:
+  media_type: application/json
+  shape: "{ message: string, code: string, details?: object }"
+  fields:
+    message: Human-readable error message
+    code: Machine-readable error code
+    details: Optional structured detail (e.g. validation issues[] with code/message/path)
+problems:
+- status: 400
+  title: Bad Request
+  meaning: The request was malformed or missing required parameters.
+- status: 401
+  title: Unauthorized
+  meaning: Missing or invalid bearer access token.
+  remediation: Obtain a token via OAuth2 PKCE flow or create one in-app; send as Authorization Bearer.
+- status: 403
+  title: Forbidden
+  meaning: The token lacks the required scope (read/write) for the operation.
+- status: 404
+  title: Not Found
+  meaning: The referenced chat, message, account or asset does not exist.
+- status: 416
+  title: Range Not Satisfiable
+  meaning: An invalid byte range was requested when serving an asset.
+- status: 422
+  title: Unprocessable Entity
+  meaning: Request validation failed; details.issues[] enumerates the invalid fields.
+- status: 429
+  title: Too Many Requests
+  meaning: Rate limit exceeded.
+- status: 500
+  title: Internal Server Error
+  meaning: An unexpected error occurred inside the local Beeper Desktop API server.

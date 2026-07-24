@@ -1,0 +1,40 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/beeper-desktop-api-openapi-original.yml + https://developers.beeper.com/desktop-api/
+base_url: http://localhost:23373
+transport_note: >-
+  Local-first API. Runs inside the Beeper Desktop app on the user's machine and by
+  default is not reachable from other devices (binds to 0.0.0.0 only when Remote
+  Access is enabled in Settings).
+authentication:
+  style: bearer
+  schemes: [oauth2, bearer]
+  detail: OAuth 2.0 Authorization Code + PKCE, or an in-app generated access token; sent as Authorization Bearer.
+  scopes: [read, write]
+pagination:
+  style: cursor
+  params: [cursor, direction, limit]
+  cursor: Opaque; do not inspect. Use together with 'direction'.
+  response_fields: [oldestCursor, latestCursor, hasMore]
+idempotency:
+  supported: false
+  note: No documented idempotency-key header or parameter in the OpenAPI as of this pass.
+versioning:
+  style: uri-path
+  current: v1
+error_envelope:
+  media_type: application/json
+  shape: "{ message, code, details }"
+  reference: errors/beeper-problem-types.yml
+rate_limiting:
+  signaled: true
+  detail: Operations can return HTTP 429 Too Many Requests.
+events:
+  style: websocket
+  url: ws://localhost:23373/v1/ws
+  reference: asyncapi/beeper-events-asyncapi.yml
+cross_links:
+  authentication: authentication/beeper-authentication.yml
+  scopes: scopes/beeper-scopes.yml
+  errors: errors/beeper-problem-types.yml
+  lifecycle: lifecycle/beeper-lifecycle.yml

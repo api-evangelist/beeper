@@ -1,0 +1,30 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/beeper-desktop-api-openapi-original.yml
+standards:
+- id: oauth2
+  conforms: true
+  evidence: securitySchemes includes oauth2 (authorizationCode + PKCE, read/write scopes)
+- id: oauth2-pkce
+  conforms: true
+  evidence: oauth2 flow description specifies Authorization Code with PKCE
+- id: bearer-token
+  conforms: true
+  evidence: securitySchemes bearerAuth (http/bearer), global security requirement
+- id: oidc
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors use a custom '{ message, code, details }' envelope, not application/problem+json
+- id: cursor-pagination
+  conforms: true
+  evidence: Cursor schema + direction parameter across list/search operations
+- id: rate-limiting
+  conforms: true
+  evidence: operations return HTTP 429 Too Many Requests
+- id: websocket-events
+  conforms: true
+  evidence: domain event stream at ws://localhost:23373/v1/ws (chat.*/message.* events)
+- id: rfc6750-bearer
+  conforms: true
+  evidence: Authorization Bearer token scheme

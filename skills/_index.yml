@@ -1,0 +1,12 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/beeper-desktop-api-openapi-original.yml
+skills:
+- file: beeper-send-message.md
+  name: Send a message in a Beeper chat
+  api: openapi/beeper-desktop-api-openapi-original.yml
+  operations: [getAccounts, searchChats, startChat, sendMessage, getChat]
+- file: beeper-search-and-triage.md
+  name: Search messages and triage a Beeper inbox
+  api: openapi/beeper-desktop-api-openapi-original.yml
+  operations: [search, searchMessages, listChats, listMessages, markChatRead, markChatUnread, archiveChat, setChatReminder]

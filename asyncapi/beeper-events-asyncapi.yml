@@ -1,0 +1,70 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/beeper-desktop-api-openapi-original.yml (WSDomainEventMessage schema)
+spec_type: AsyncAPI
+asyncapi: 3.0.0
+info:
+  title: Beeper Desktop API - Live Events
+  version: 5.0.0
+  description: >-
+    Experimental WebSocket event stream exposed by the local Beeper Desktop API.
+    Clients subscribe to chats and receive domain events as they occur.
+servers:
+  local:
+    host: localhost:23373
+    protocol: ws
+    description: Local Beeper Desktop API WebSocket endpoint (path /v1/ws).
+channels:
+  events:
+    address: /v1/ws
+    description: Bidirectional WebSocket stream of subscription control and domain events.
+    messages:
+      domainEvent:
+        $ref: '#/components/messages/DomainEvent'
+      ready:
+        $ref: '#/components/messages/Ready'
+      subscriptionsUpdated:
+        $ref: '#/components/messages/SubscriptionsUpdated'
+      setSubscriptions:
+        $ref: '#/components/messages/SetSubscriptions'
+operations:
+  receiveDomainEvent:
+    action: receive
+    channel:
+      $ref: '#/channels/events'
+    messages:
+    - $ref: '#/channels/events/messages/domainEvent'
+  setSubscriptions:
+    action: send
+    channel:
+      $ref: '#/channels/events'
+    messages:
+    - $ref: '#/channels/events/messages/setSubscriptions'
+components:
+  messages:
+    DomainEvent:
+      name: DomainEventMessage
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: [chat.upserted, chat.deleted, message.upserted, message.deleted]
+          seq: { type: integer, minimum: 0 }
+          ts: { type: string, format: date-time }
+          chatID: { type: string }
+          ids:
+            type: array
+            items: { type: string }
+    Ready:
+      name: ReadyMessage
+      payload:
+        type: object
+    SubscriptionsUpdated:
+      name: SubscriptionsUpdatedMessage
+      payload:
+        type: object
+    SetSubscriptions:
+      name: SetSubscriptionsMessage
+      payload:
+        type: object

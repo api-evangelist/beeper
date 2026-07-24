@@ -1,0 +1,27 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/beeper-desktop-api-openapi-original.yml
+docs: https://developers.beeper.com/desktop-api/authentication
+schemes:
+- name: oauth2
+  source: openapi/beeper-desktop-api-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: http://localhost:23373/oauth/authorize
+    tokenUrl: http://localhost:23373/oauth/token
+  description: OAuth2 Authorization Code flow with PKCE for obtaining bearer access tokens.
+    Used by MCP servers to authenticate clients.
+scopes:
+- scope: read
+  description: Read access to messages, chats, and accounts
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/beeper-desktop-api-openapi-original.yml
+- scope: write
+  description: Write access to send messages, edit messages, react to messages, archive chats,
+    and set reminders
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/beeper-desktop-api-openapi-original.yml

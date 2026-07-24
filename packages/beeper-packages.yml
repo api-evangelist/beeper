@@ -1,0 +1,46 @@
+generated: '2026-07-18'
+method: searched
+source: https://developers.beeper.com/desktop-api/ + npm/PyPI/pkg.go.dev/GitHub
+packages:
+- language: javascript
+  registry: npm
+  name: "@beeper/desktop-api"
+  version: 5.0.0
+  url: https://www.npmjs.com/package/@beeper/desktop-api
+  repository: https://github.com/beeper/desktop-api-js
+  install: npm install @beeper/desktop-api
+  description: The official TypeScript library for the Beeper Desktop API.
+  official: true
+- language: python
+  registry: pypi
+  name: beeper-desktop-api
+  version: 5.0.0
+  url: https://pypi.org/project/beeper-desktop-api/
+  repository: https://github.com/beeper/desktop-api-python
+  install: pip install beeper-desktop-api
+  description: The official Python library for the Beeper Desktop API.
+  official: true
+- language: go
+  registry: pkg.go.dev
+  name: github.com/beeper/desktop-api-go
+  version: v0.5.0
+  url: https://pkg.go.dev/github.com/beeper/desktop-api-go
+  repository: https://github.com/beeper/desktop-api-go
+  install: go get github.com/beeper/desktop-api-go
+  description: The official Go library for the Beeper Desktop API.
+  official: true
+- language: php
+  registry: github
+  name: beeper/desktop-api-php
+  url: https://github.com/beeper/desktop-api-php
+  repository: https://github.com/beeper/desktop-api-php
+  description: The official PHP library for the Beeper Desktop API (not published to Packagist as of this pass).
+  official: true
+- language: javascript
+  registry: npm
+  name: "@beeper/mcp-remote"
+  version: 0.0.2
+  url: https://www.npmjs.com/package/@beeper/mcp-remote
+  install: npx -y @beeper/mcp-remote
+  description: stdio bridge for Beeper Desktop's Streamable HTTP MCP server.
+  official: true
