@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Beeper Desktop Accounts App API",
+    "version": "5.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "App",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:23373/v1/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "User-typed search text. Literal word matching (non-semantic)."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns matching chats, participant name matches in groups, and the first page of messages in one call. Paginate messages via search-messages. Paginate chats via search-chats."
+        },
+        {
+          "info": {
+            "name": "Focus Beeper Desktop app",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:23373/v1/focus",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Focus Beeper Desktop and optionally navigate to a specific chat, message, or pre-fill plain text and an image path."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

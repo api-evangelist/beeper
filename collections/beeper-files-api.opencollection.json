@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Beeper Desktop Accounts Files API",
+    "version": "5.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Download a file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:23373/v1/assets/download",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Download a Matrix file using its mxc:// or localmxc:// URL to the device running Beeper Desktop and return the local file URL."
+        },
+        {
+          "info": {
+            "name": "Serve a file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:23373/v1/assets/serve",
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "File URL to serve. Accepts mxc://, localmxc://, or file:// URLs."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Stream a file given an mxc://, localmxc://, or file:// URL. Downloads first if not cached. Supports Range requests for seeking in large files."
+        },
+        {
+          "info": {
+            "name": "Upload a file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:23373/v1/assets/upload",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Upload a file to a temporary location using multipart/form-data. Returns an uploadID that can be referenced when sending a message or materializing a draft attachment."
+        },
+        {
+          "info": {
+            "name": "Upload a file (base64)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:23373/v1/assets/upload/base64",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Upload a file using a JSON body with base64-encoded content. Returns an uploadID that can be referenced when sending a message or materializing a draft attachment. Alternative to the multipart upload endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

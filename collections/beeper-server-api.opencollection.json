@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Beeper Desktop Accounts Server API",
+    "version": "5.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Server",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve server info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:23373/v1/info"
+          },
+          "docs": "Returns app, platform, server, endpoint discovery, OAuth, and WebSocket metadata for this Beeper Desktop instance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

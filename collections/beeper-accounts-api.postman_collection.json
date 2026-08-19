@@ -1,0 +1,485 @@
+{
+  "item": [
+    {
+      "id": "b9eac5e4-af28-498f-b644-87873a87f82f",
+      "name": "Accounts",
+      "description": {
+        "content": "Chat Accounts connected to this Beeper Desktop instance. Each Account owns a bridge and network.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8695250e-aecb-4bcb-b63c-e4ab3e1afb35",
+          "name": "List Chat Accounts",
+          "request": {
+            "name": "List Chat Accounts",
+            "description": {
+              "content": "List Chat Accounts connected to this Beeper Desktop instance, including bridge metadata and network identity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1ed1e8f5-febf-47dc-8908-fbad48d447ed",
+              "name": "Request executed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"accountID\": \"string\",\n    \"bridge\": {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"provider\": \"cloud\"\n    },\n    \"user\": {\n      \"id\": \"string\",\n      \"username\": \"string\",\n      \"phoneNumber\": \"string\",\n      \"email\": \"string\",\n      \"fullName\": \"string\",\n      \"imgURL\": \"string\",\n      \"cannotMessage\": false,\n      \"isSelf\": true\n    },\n    \"network\": \"string\"\n  },\n  {\n    \"accountID\": \"string\",\n    \"bridge\": {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"provider\": \"platform-sdk\"\n    },\n    \"user\": {\n      \"id\": \"string\",\n      \"username\": \"string\",\n      \"phoneNumber\": \"string\",\n      \"email\": \"string\",\n      \"fullName\": \"string\",\n      \"imgURL\": \"string\",\n      \"cannotMessage\": false,\n      \"isSelf\": false\n    },\n    \"network\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15a52124-5b7b-412c-b05b-0f05fad4fcf3",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3437986e-2a84-48ef-aa8f-bbe229048631",
+              "name": "Access token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c6e2271-19dd-4ff5-8db0-5adab259672b",
+              "name": "Access token does not have the required scope",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05bdb7e0-d172-43fc-af5b-f403915d4e0e",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfee0d5e-b1d8-4bc8-8cb1-ed52bada5f4a",
+              "name": "Unprocessable entity - validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf0f9cc3-4e8b-479c-9168-231e18c31490",
+              "name": "Too many requests - rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7b71319-35a9-47b2-a1da-0151b8c7baa1",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:23373",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4b1c97e9-60d1-47e5-887f-91e1cb4b78ca",
+    "name": "Beeper Desktop Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Beeper Desktop's local HTTP and WebSocket API. One auth flow and one chat shape work across WhatsApp, iMessage, Telegram, Slack, Matrix, Discord, Twitter/X, Signal, and more.\n\nBeeper is built on the Matrix standard. Identifiers and rich text use Matrix conventions: `mxc://` and `localmxc://` URLs reference media on the Matrix homeserver and on this device's local bridge respectively; message text is Matrix HTML on the wire; `@room` is a group-mention sentinel.\n\n## Quickstart\n1. Discover the server with `GET /v1/info`. The Desktop API is local-only unless the user has enabled remote access.\n2. Authenticate with an access token from Beeper Desktop, or run OAuth2 Authorization Code with PKCE under the OAuth tag.\n3. Call `GET /v1/accounts` to see connected Chat Accounts, then `GET /v1/chats` for the unified inbox.\n\n## WebSocket\nConnect to `/v1/ws` with the same Bearer token in the upgrade request. Browser `new WebSocket()` clients are not supported yet because browsers cannot set the Authorization header. After the server sends `ready`, send `{\"type\":\"subscriptions.set\",\"chatIDs\":[\"*\"]}` to receive every chat update, or pass specific chat IDs. The server replies with `subscriptions.updated`, then streams `chat.upserted`, `chat.deleted`, `message.upserted`, and `message.deleted`.\n\nDelivery is at-most-once. There is no replay on reconnect, and `seq` is per connection. Refetch via HTTP after a disconnect to reconcile drift. Initial subscription state is empty; `subscriptions.set` replaces previous state; `[\"*\"]` cannot be combined with specific chat IDs.\n\n## Conventions\n- IDs and cursors are opaque strings.\n- Timestamps are ISO 8601 with timezone, except OAuth fields that use Unix seconds per RFC.\n- Pagination is `cursor` plus `direction=before|after`.\n- Sends return a `pendingMessageID`; resolve it with `GET /v1/chats/{chatID}/messages/{messageID}` or wait for `message.upserted` over the WebSocket.\n- Optional fields may be omitted when unknown. Nullable write fields use `null` as an explicit clear operation.\n- Every response carries `X-Beeper-Desktop-Version` so clients can tell which app version produced it.\n\nContact Support:\n Name: Beeper\n Email: help@beeper.com",
+      "type": "text/plain"
+    }
+  }
+}

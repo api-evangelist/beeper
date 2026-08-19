@@ -1,0 +1,177 @@
+{
+  "item": [
+    {
+      "id": "38296946-74dd-4f8f-b727-584c6adafeb5",
+      "name": "Server",
+      "description": {
+        "content": "Server discovery and capability metadata. Use /v1/info before authentication setup.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0aff7d43-7ef6-4cdd-af13-b8aa0d060906",
+          "name": "Retrieve server info",
+          "request": {
+            "name": "Retrieve server info",
+            "description": {
+              "content": "Returns app, platform, server, endpoint discovery, OAuth, and WebSocket metadata for this Beeper Desktop instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7a67d915-6001-4b51-9a94-01e2c5511b57",
+              "name": "Beeper Desktop API server info",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"app\": {\n    \"name\": \"string\",\n    \"version\": \"string\",\n    \"bundle_id\": \"string\"\n  },\n  \"platform\": {\n    \"os\": \"string\",\n    \"arch\": \"string\",\n    \"release\": \"string\"\n  },\n  \"server\": {\n    \"status\": \"string\",\n    \"base_url\": \"string\",\n    \"port\": 313,\n    \"hostname\": \"string\",\n    \"remote_access\": false,\n    \"mcp_enabled\": true\n  },\n  \"endpoints\": {\n    \"oauth\": {\n      \"authorization_endpoint\": \"string\",\n      \"token_endpoint\": \"string\",\n      \"introspection_endpoint\": \"string\",\n      \"userinfo_endpoint\": \"string\",\n      \"revocation_endpoint\": \"string\",\n      \"registration_endpoint\": \"string\"\n    },\n    \"spec\": \"string\",\n    \"mcp\": \"string\",\n    \"ws_events\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0893f428-2e1c-4d0d-8868-7123b588af2b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:23373",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "44a0b42a-461f-40cc-838f-26be7f1965c5",
+    "name": "Beeper Desktop Accounts Server API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Beeper Desktop's local HTTP and WebSocket API. One auth flow and one chat shape work across WhatsApp, iMessage, Telegram, Slack, Matrix, Discord, Twitter/X, Signal, and more.\n\nBeeper is built on the Matrix standard. Identifiers and rich text use Matrix conventions: `mxc://` and `localmxc://` URLs reference media on the Matrix homeserver and on this device's local bridge respectively; message text is Matrix HTML on the wire; `@room` is a group-mention sentinel.\n\n## Quickstart\n1. Discover the server with `GET /v1/info`. The Desktop API is local-only unless the user has enabled remote access.\n2. Authenticate with an access token from Beeper Desktop, or run OAuth2 Authorization Code with PKCE under the OAuth tag.\n3. Call `GET /v1/accounts` to see connected Chat Accounts, then `GET /v1/chats` for the unified inbox.\n\n## WebSocket\nConnect to `/v1/ws` with the same Bearer token in the upgrade request. Browser `new WebSocket()` clients are not supported yet because browsers cannot set the Authorization header. After the server sends `ready`, send `{\"type\":\"subscriptions.set\",\"chatIDs\":[\"*\"]}` to receive every chat update, or pass specific chat IDs. The server replies with `subscriptions.updated`, then streams `chat.upserted`, `chat.deleted`, `message.upserted`, and `message.deleted`.\n\nDelivery is at-most-once. There is no replay on reconnect, and `seq` is per connection. Refetch via HTTP after a disconnect to reconcile drift. Initial subscription state is empty; `subscriptions.set` replaces previous state; `[\"*\"]` cannot be combined with specific chat IDs.\n\n## Conventions\n- IDs and cursors are opaque strings.\n- Timestamps are ISO 8601 with timezone, except OAuth fields that use Unix seconds per RFC.\n- Pagination is `cursor` plus `direction=before|after`.\n- Sends return a `pendingMessageID`; resolve it with `GET /v1/chats/{chatID}/messages/{messageID}` or wait for `message.upserted` over the WebSocket.\n- Optional fields may be omitted when unknown. Nullable write fields use `null` as an explicit clear operation.\n- Every response carries `X-Beeper-Desktop-Version` so clients can tell which app version produced it.\n\nContact Support:\n Name: Beeper\n Email: help@beeper.com",
+      "type": "text/plain"
+    }
+  }
+}

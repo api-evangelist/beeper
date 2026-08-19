@@ -1,0 +1,1053 @@
+{
+  "item": [
+    {
+      "id": "c25d45ab-bbfb-4c25-8bc6-f81c49c3eae1",
+      "name": "App",
+      "description": {
+        "content": "Top-level actions: focus the app window, jump to a chat, or run unified search across chats and messages.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4df4c8f9-01ab-4d8d-ab8e-8058a70fc639",
+          "name": "Search",
+          "request": {
+            "name": "Search",
+            "description": {
+              "content": "Returns matching chats, participant name matches in groups, and the first page of messages in one call. Paginate messages via search-messages. Paginate chats via search-chats.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) User-typed search text. Literal word matching (non-semantic)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "272b6e7b-6b3e-42a7-8891-45120fa73065",
+              "name": "Request executed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": {\n    \"chats\": [\n      {\n        \"id\": \"!NCdzlIaMjZUmvmvyHU:beeper.com\",\n        \"accountID\": \"string\",\n        \"network\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"group\",\n        \"participants\": {\n          \"items\": [\n            {\n              \"isAdmin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isPending\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isNetworkBot\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"isAdmin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isPending\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isNetworkBot\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"hasMore\": false,\n          \"total\": 165\n        },\n        \"unreadCount\": 3,\n        \"localChatID\": \"string\",\n        \"description\": \"string\",\n        \"imgURL\": \"string\",\n        \"isReadOnly\": false,\n        \"lastActivity\": \"2025-08-31T23:30:12.520Z\",\n        \"unreadMentionsCount\": 9655,\n        \"lastReadMessageSortKey\": \"string\",\n        \"draft\": {\n          \"text\": \"string\",\n          \"attachments\": {\n            \"key_0\": {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"mimeType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"filePath\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"stickerID\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"audioDurationSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"reminder\": {\n          \"remindAt\": \"2025-08-31T23:30:12.520Z\",\n          \"dismissOnIncomingMessage\": true\n        },\n        \"snooze\": {\n          \"snoozeUntil\": \"2025-08-31T23:30:12.520Z\",\n          \"userSnoozedAt\": \"2025-08-31T23:30:12.520Z\"\n        },\n        \"isArchived\": false,\n        \"isMarkedUnread\": true,\n        \"isMuted\": true,\n        \"isPinned\": true,\n        \"isLowPriority\": true,\n        \"messageExpirySeconds\": 9246,\n        \"capabilities\": {\n          \"formatting\": {\n            \"key_0\": 0,\n            \"key_1\": 1,\n            \"key_2\": 0,\n            \"key_3\": 1\n          },\n          \"attachments\": {\n            \"key_0\": {\n              \"mimeTypes\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"caption\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxCaptionLength\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxWidth\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxHeight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxDuration\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"viewOnce\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"key_1\": {\n              \"mimeTypes\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"caption\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxCaptionLength\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxWidth\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxHeight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxDuration\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"viewOnce\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"maxTextLength\": 5721,\n          \"locationMessage\": 1,\n          \"poll\": 0,\n          \"thread\": 1,\n          \"reply\": 1,\n          \"edit\": 0,\n          \"editMaxCount\": 7111,\n          \"editMaxAge\": 4670,\n          \"delete\": 0,\n          \"deleteMaxAge\": 6308,\n          \"deleteForMe\": true,\n          \"messageRequest\": {\n            \"acceptWithMessage\": 0,\n            \"acceptWithButton\": 0\n          },\n          \"reaction\": 1,\n          \"reactionCount\": 9400,\n          \"allowedReactions\": [\n            \"string\",\n            \"string\"\n          ],\n          \"customEmojiReactions\": false,\n          \"disappearingTimer\": {\n            \"types\": [\n              \"afterRead\",\n              \"afterSend\"\n            ],\n            \"timers\": [\n              4223,\n              6868\n            ],\n            \"omitEmptyTimer\": false\n          },\n          \"readReceipts\": false,\n          \"typingNotifications\": true,\n          \"archive\": true,\n          \"markAsUnread\": false,\n          \"deleteChat\": false,\n          \"deleteChatForEveryone\": false,\n          \"participantActions\": {\n            \"ban\": 1,\n            \"invite\": 0,\n            \"kick\": 1,\n            \"leave\": 1,\n            \"revokeInvite\": 1\n          },\n          \"state\": {\n            \"disappearingTimer\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"avatar\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"title\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"description\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      },\n      {\n        \"id\": \"!NCdzlIaMjZUmvmvyHU:beeper.com\",\n        \"accountID\": \"string\",\n        \"network\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"group\",\n        \"participants\": {\n          \"items\": [\n            {\n              \"isAdmin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isPending\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isNetworkBot\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"isAdmin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isPending\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isNetworkBot\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"hasMore\": true,\n          \"total\": 7632\n        },\n        \"unreadCount\": 3,\n        \"localChatID\": \"string\",\n        \"description\": \"string\",\n        \"imgURL\": \"string\",\n        \"isReadOnly\": true,\n        \"lastActivity\": \"2025-08-31T23:30:12.520Z\",\n        \"unreadMentionsCount\": 5782,\n        \"lastReadMessageSortKey\": \"string\",\n        \"draft\": {\n          \"text\": \"string\",\n          \"attachments\": {\n            \"key_0\": {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"mimeType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"filePath\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"stickerID\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"audioDurationSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"reminder\": {\n          \"remindAt\": \"2025-08-31T23:30:12.520Z\",\n          \"dismissOnIncomingMessage\": false\n        },\n        \"snooze\": {\n          \"snoozeUntil\": \"2025-08-31T23:30:12.520Z\",\n          \"userSnoozedAt\": \"2025-08-31T23:30:12.520Z\"\n        },\n        \"isArchived\": true,\n        \"isMarkedUnread\": true,\n        \"isMuted\": false,\n        \"isPinned\": false,\n        \"isLowPriority\": false,\n        \"messageExpirySeconds\": 7759,\n        \"capabilities\": {\n          \"formatting\": {\n            \"key_0\": 1,\n            \"key_1\": 2,\n            \"key_2\": 1\n          },\n          \"attachments\": {\n            \"key_0\": {\n              \"mimeTypes\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"caption\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxCaptionLength\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxWidth\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxHeight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxDuration\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"viewOnce\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"key_1\": {\n              \"mimeTypes\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"caption\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxCaptionLength\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxWidth\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxHeight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxDuration\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"viewOnce\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"maxTextLength\": 6108,\n          \"locationMessage\": 0,\n          \"poll\": 0,\n          \"thread\": 1,\n          \"reply\": 1,\n          \"edit\": 2,\n          \"editMaxCount\": 9131,\n          \"editMaxAge\": 666,\n          \"delete\": 1,\n          \"deleteMaxAge\": 5279,\n          \"deleteForMe\": true,\n          \"messageRequest\": {\n            \"acceptWithMessage\": 1,\n            \"acceptWithButton\": 0\n          },\n          \"reaction\": 0,\n          \"reactionCount\": 8945,\n          \"allowedReactions\": [\n            \"string\",\n            \"string\"\n          ],\n          \"customEmojiReactions\": false,\n          \"disappearingTimer\": {\n            \"types\": [\n              \"afterSend\",\n              \"afterSend\"\n            ],\n            \"timers\": [\n              8413,\n              3923\n            ],\n            \"omitEmptyTimer\": true\n          },\n          \"readReceipts\": true,\n          \"typingNotifications\": true,\n          \"archive\": true,\n          \"markAsUnread\": false,\n          \"deleteChat\": false,\n          \"deleteChatForEveryone\": false,\n          \"participantActions\": {\n            \"ban\": 1,\n            \"invite\": 0,\n            \"kick\": 1,\n            \"leave\": 0,\n            \"revokeInvite\": 2\n          },\n          \"state\": {\n            \"disappearingTimer\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"avatar\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"title\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"description\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      }\n    ],\n    \"in_groups\": [\n      {\n        \"id\": \"!NCdzlIaMjZUmvmvyHU:beeper.com\",\n        \"accountID\": \"string\",\n        \"network\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"single\",\n        \"participants\": {\n          \"items\": [\n            {\n              \"isAdmin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isPending\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isNetworkBot\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"isAdmin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isPending\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isNetworkBot\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"hasMore\": true,\n          \"total\": 9693\n        },\n        \"unreadCount\": 3,\n        \"localChatID\": \"string\",\n        \"description\": \"string\",\n        \"imgURL\": \"string\",\n        \"isReadOnly\": false,\n        \"lastActivity\": \"2025-08-31T23:30:12.520Z\",\n        \"unreadMentionsCount\": 9232,\n        \"lastReadMessageSortKey\": \"string\",\n        \"draft\": {\n          \"text\": \"string\",\n          \"attachments\": {\n            \"key_0\": {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"mimeType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"filePath\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"stickerID\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"audioDurationSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"key_1\": {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"mimeType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"filePath\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"stickerID\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"audioDurationSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"key_2\": {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"mimeType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"filePath\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"stickerID\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"audioDurationSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"reminder\": {\n          \"remindAt\": \"2025-08-31T23:30:12.520Z\",\n          \"dismissOnIncomingMessage\": true\n        },\n        \"snooze\": {\n          \"snoozeUntil\": \"2025-08-31T23:30:12.520Z\",\n          \"userSnoozedAt\": \"2025-08-31T23:30:12.520Z\"\n        },\n        \"isArchived\": false,\n        \"isMarkedUnread\": false,\n        \"isMuted\": false,\n        \"isPinned\": false,\n        \"isLowPriority\": false,\n        \"messageExpirySeconds\": 1839,\n        \"capabilities\": {\n          \"formatting\": {\n            \"key_0\": 1\n          },\n          \"attachments\": {\n            \"key_0\": {\n              \"mimeTypes\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"caption\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxCaptionLength\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxWidth\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxHeight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxDuration\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"viewOnce\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"maxTextLength\": 3477,\n          \"locationMessage\": 1,\n          \"poll\": 0,\n          \"thread\": 0,\n          \"reply\": 2,\n          \"edit\": 1,\n          \"editMaxCount\": 3719,\n          \"editMaxAge\": 9868,\n          \"delete\": 0,\n          \"deleteMaxAge\": 7675,\n          \"deleteForMe\": false,\n          \"messageRequest\": {\n            \"acceptWithMessage\": 1,\n            \"acceptWithButton\": 2\n          },\n          \"reaction\": 0,\n          \"reactionCount\": 4112,\n          \"allowedReactions\": [\n            \"string\",\n            \"string\"\n          ],\n          \"customEmojiReactions\": true,\n          \"disappearingTimer\": {\n            \"types\": [\n              \"afterRead\",\n              \"afterSend\"\n            ],\n            \"timers\": [\n              4840,\n              9\n            ],\n            \"omitEmptyTimer\": true\n          },\n          \"readReceipts\": false,\n          \"typingNotifications\": false,\n          \"archive\": false,\n          \"markAsUnread\": true,\n          \"deleteChat\": false,\n          \"deleteChatForEveryone\": true,\n          \"participantActions\": {\n            \"ban\": 1,\n            \"invite\": 0,\n            \"kick\": 2,\n            \"leave\": 0,\n            \"revokeInvite\": 1\n          },\n          \"state\": {\n            \"disappearingTimer\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"avatar\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"title\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"description\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      },\n      {\n        \"id\": \"!NCdzlIaMjZUmvmvyHU:beeper.com\",\n        \"accountID\": \"string\",\n        \"network\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"group\",\n        \"participants\": {\n          \"items\": [\n            {\n              \"isAdmin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isPending\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isNetworkBot\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"isAdmin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isPending\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isNetworkBot\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"hasMore\": true,\n          \"total\": 5922\n        },\n        \"unreadCount\": 3,\n        \"localChatID\": \"string\",\n        \"description\": \"string\",\n        \"imgURL\": \"string\",\n        \"isReadOnly\": false,\n        \"lastActivity\": \"2025-08-31T23:30:12.520Z\",\n        \"unreadMentionsCount\": 8506,\n        \"lastReadMessageSortKey\": \"string\",\n        \"draft\": {\n          \"text\": \"string\",\n          \"attachments\": {\n            \"key_0\": {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"mimeType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"filePath\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"stickerID\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"audioDurationSeconds\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"reminder\": {\n          \"remindAt\": \"2025-08-31T23:30:12.520Z\",\n          \"dismissOnIncomingMessage\": true\n        },\n        \"snooze\": {\n          \"snoozeUntil\": \"2025-08-31T23:30:12.520Z\",\n          \"userSnoozedAt\": \"2025-08-31T23:30:12.520Z\"\n        },\n        \"isArchived\": true,\n        \"isMarkedUnread\": false,\n        \"isMuted\": true,\n        \"isPinned\": false,\n        \"isLowPriority\": true,\n        \"messageExpirySeconds\": 2112,\n        \"capabilities\": {\n          \"formatting\": {\n            \"key_0\": 2,\n            \"key_1\": 2,\n            \"key_2\": 2\n          },\n          \"attachments\": {\n            \"key_0\": {\n              \"mimeTypes\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"caption\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxCaptionLength\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxWidth\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxHeight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxDuration\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"viewOnce\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"key_1\": {\n              \"mimeTypes\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"caption\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxCaptionLength\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxWidth\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxHeight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxDuration\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"viewOnce\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"maxTextLength\": 5440,\n          \"locationMessage\": 1,\n          \"poll\": 0,\n          \"thread\": 1,\n          \"reply\": 1,\n          \"edit\": 2,\n          \"editMaxCount\": 9799,\n          \"editMaxAge\": 1674,\n          \"delete\": 0,\n          \"deleteMaxAge\": 3275,\n          \"deleteForMe\": false,\n          \"messageRequest\": {\n            \"acceptWithMessage\": 0,\n            \"acceptWithButton\": 0\n          },\n          \"reaction\": 0,\n          \"reactionCount\": 7012,\n          \"allowedReactions\": [\n            \"string\",\n            \"string\"\n          ],\n          \"customEmojiReactions\": true,\n          \"disappearingTimer\": {\n            \"types\": [\n              \"afterSend\",\n              \"afterRead\"\n            ],\n            \"timers\": [\n              7156,\n              4646\n            ],\n            \"omitEmptyTimer\": false\n          },\n          \"readReceipts\": false,\n          \"typingNotifications\": false,\n          \"archive\": true,\n          \"markAsUnread\": false,\n          \"deleteChat\": false,\n          \"deleteChatForEveryone\": false,\n          \"participantActions\": {\n            \"ban\": 0,\n            \"invite\": 0,\n            \"kick\": 1,\n            \"leave\": 2,\n            \"revokeInvite\": 1\n          },\n          \"state\": {\n            \"disappearingTimer\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"avatar\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"title\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"description\": {\n              \"level\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      }\n    ],\n    \"messages\": {\n      \"items\": [\n        {\n          \"id\": \"1343993\",\n          \"chatID\": \"!NCdzlIaMjZUmvmvyHU:beeper.com\",\n          \"accountID\": \"string\",\n          \"senderID\": \"@kishanbagaria:local-whatsapp.localhost\",\n          \"timestamp\": \"2025-08-31T23:30:12.520Z\",\n          \"sortKey\": \"821744079\",\n          \"senderName\": \"string\",\n          \"type\": \"STICKER\",\n          \"text\": \"string\",\n          \"editedTimestamp\": \"2025-08-31T23:30:12.520Z\",\n          \"isSender\": true,\n          \"sendStatus\": {\n            \"status\": \"PENDING\",\n            \"timestamp\": \"2025-08-31T23:30:12.520Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\",\n            \"deliveredToUsers\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"internalError\": \"string\"\n          },\n          \"isHidden\": false,\n          \"isDeleted\": false,\n          \"attachments\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"srcURL\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"mimeType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isGif\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isSticker\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isVoiceNote\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"duration\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"transcription\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"posterImg\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"srcURL\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"mimeType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isGif\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isSticker\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isVoiceNote\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"duration\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"transcription\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"posterImg\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"isUnread\": false,\n          \"linkedMessageID\": \"1343993\",\n          \"mentions\": [\n            \"string\",\n            \"string\"\n          ],\n          \"links\": [\n            {\n              \"url\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"title\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"originalURL\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"favicon\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"img\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"imgSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"summary\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"url\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"title\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"originalURL\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"favicon\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"img\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"imgSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"summary\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"reactions\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"reactionKey\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"participantID\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"imgURL\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"emoji\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"reactionKey\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"participantID\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"imgURL\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"emoji\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"seen\": true\n        },\n        {\n          \"id\": \"1343993\",\n          \"chatID\": \"!NCdzlIaMjZUmvmvyHU:beeper.com\",\n          \"accountID\": \"string\",\n          \"senderID\": \"@kishanbagaria:local-whatsapp.localhost\",\n          \"timestamp\": \"2025-08-31T23:30:12.520Z\",\n          \"sortKey\": \"821744079\",\n          \"senderName\": \"string\",\n          \"type\": \"LOCATION\",\n          \"text\": \"string\",\n          \"editedTimestamp\": \"2025-08-31T23:30:12.520Z\",\n          \"isSender\": false,\n          \"sendStatus\": {\n            \"status\": \"SUCCESS\",\n            \"timestamp\": \"2025-08-31T23:30:12.520Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\",\n            \"deliveredToUsers\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"internalError\": \"string\"\n          },\n          \"isHidden\": false,\n          \"isDeleted\": false,\n          \"attachments\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"srcURL\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"mimeType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isGif\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isSticker\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isVoiceNote\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"duration\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"transcription\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"posterImg\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"srcURL\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"mimeType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileName\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fileSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isGif\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isSticker\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"isVoiceNote\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"duration\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"transcription\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"posterImg\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"isUnread\": false,\n          \"linkedMessageID\": \"1343993\",\n          \"mentions\": [\n            \"string\",\n            \"string\"\n          ],\n          \"links\": [\n            {\n              \"url\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"title\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"originalURL\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"favicon\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"img\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"imgSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"summary\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"url\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"title\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"originalURL\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"favicon\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"img\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"imgSize\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"summary\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"reactions\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"reactionKey\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"participantID\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"imgURL\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"emoji\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"reactionKey\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"participantID\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"imgURL\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"emoji\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"seen\": true\n        }\n      ],\n      \"hasMore\": true,\n      \"oldestCursor\": \"1725489123456|c29tZUltc2dQYWdl\",\n      \"newestCursor\": \"1725489123456|c29tZUltc2dQYWdl\",\n      \"chats\": {\n        \"key_0\": {\n          \"id\": \"!NCdzlIaMjZUmvmvyHU:beeper.com\",\n          \"accountID\": \"string\",\n          \"network\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"single\",\n          \"participants\": {\n            \"items\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"hasMore\": false,\n            \"total\": 5480\n          },\n          \"unreadCount\": 3,\n          \"localChatID\": \"string\",\n          \"description\": \"string\",\n          \"imgURL\": \"string\",\n          \"isReadOnly\": false,\n          \"lastActivity\": \"2025-08-31T23:30:12.520Z\",\n          \"unreadMentionsCount\": 8508,\n          \"lastReadMessageSortKey\": \"string\",\n          \"draft\": {\n            \"text\": \"string\",\n            \"attachments\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"reminder\": {\n            \"remindAt\": \"2025-08-31T23:30:12.520Z\",\n            \"dismissOnIncomingMessage\": true\n          },\n          \"snooze\": {\n            \"snoozeUntil\": \"2025-08-31T23:30:12.520Z\",\n            \"userSnoozedAt\": \"2025-08-31T23:30:12.520Z\"\n          },\n          \"isArchived\": false,\n          \"isMarkedUnread\": false,\n          \"isMuted\": true,\n          \"isPinned\": true,\n          \"isLowPriority\": false,\n          \"messageExpirySeconds\": 6908,\n          \"capabilities\": {\n            \"formatting\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"attachments\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"maxTextLength\": 4342,\n            \"locationMessage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"poll\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"thread\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reply\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"edit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"editMaxCount\": 9884,\n            \"editMaxAge\": 9089,\n            \"delete\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"deleteMaxAge\": 6366,\n            \"deleteForMe\": true,\n            \"messageRequest\": {\n              \"acceptWithMessage\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"acceptWithButton\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"reaction\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reactionCount\": 7154,\n            \"allowedReactions\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"customEmojiReactions\": false,\n            \"disappearingTimer\": {\n              \"types\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"timers\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"omitEmptyTimer\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"readReceipts\": true,\n            \"typingNotifications\": true,\n            \"archive\": false,\n            \"markAsUnread\": false,\n            \"deleteChat\": true,\n            \"deleteChatForEveryone\": true,\n            \"participantActions\": {\n              \"ban\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"invite\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"kick\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"leave\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"revokeInvite\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"state\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be9321c4-0b8a-4afa-8265-2c731177e878",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17290cc6-4a5c-43ae-b6ac-0b7c9ae09278",
+              "name": "Access token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e695638-d939-433d-8863-dd78619aa73b",
+              "name": "Access token does not have the required scope",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f95c9a19-c927-420e-9fef-7428a4d83854",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd11bf61-a618-4b38-8f49-b695ff5ac5e0",
+              "name": "Unprocessable entity - validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1bc4e67-d439-456e-b6d7-c4cda55a60e9",
+              "name": "Too many requests - rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e5166a1-07c3-4f5a-a157-ac68805492e4",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4862c2d-1036-478e-b47a-e6931ef657a0",
+          "name": "Focus Beeper Desktop app",
+          "request": {
+            "name": "Focus Beeper Desktop app",
+            "description": {
+              "content": "Focus Beeper Desktop and optionally navigate to a specific chat, message, or pre-fill plain text and an image path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "focus"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"chatID\": \"<string>\",\n  \"messageID\": \"<string>\",\n  \"draftText\": \"<string>\",\n  \"draftAttachmentPath\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "71db2e0d-574b-4f07-9b36-2b3578a792e8",
+              "name": "Request executed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "focus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"chatID\": \"!NCdzlIaMjZUmvmvyHU:beeper.com\",\n  \"messageID\": \"<string>\",\n  \"draftText\": \"<string>\",\n  \"draftAttachmentPath\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a30da3b-debd-4fea-b2d2-0c18b32c6621",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "focus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"chatID\": \"!NCdzlIaMjZUmvmvyHU:beeper.com\",\n  \"messageID\": \"<string>\",\n  \"draftText\": \"<string>\",\n  \"draftAttachmentPath\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20eb336b-778a-431c-8007-646ce28984ac",
+              "name": "Access token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "focus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"chatID\": \"!NCdzlIaMjZUmvmvyHU:beeper.com\",\n  \"messageID\": \"<string>\",\n  \"draftText\": \"<string>\",\n  \"draftAttachmentPath\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "817d866e-85d9-4e36-afc5-00d710e6e274",
+              "name": "Access token does not have the required scope",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "focus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"chatID\": \"!NCdzlIaMjZUmvmvyHU:beeper.com\",\n  \"messageID\": \"<string>\",\n  \"draftText\": \"<string>\",\n  \"draftAttachmentPath\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f18cb01-d530-45a5-8826-e01b704e9473",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "focus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"chatID\": \"!NCdzlIaMjZUmvmvyHU:beeper.com\",\n  \"messageID\": \"<string>\",\n  \"draftText\": \"<string>\",\n  \"draftAttachmentPath\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8217b19-698b-44a7-bbb1-e595563e9d23",
+              "name": "Unprocessable entity - validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "focus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"chatID\": \"!NCdzlIaMjZUmvmvyHU:beeper.com\",\n  \"messageID\": \"<string>\",\n  \"draftText\": \"<string>\",\n  \"draftAttachmentPath\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37c1b82a-9153-4e87-9b86-617b392c00c6",
+              "name": "Too many requests - rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "focus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"chatID\": \"!NCdzlIaMjZUmvmvyHU:beeper.com\",\n  \"messageID\": \"<string>\",\n  \"draftText\": \"<string>\",\n  \"draftAttachmentPath\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "658075fc-6a8f-488e-85a4-8380e573c5d4",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "focus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"chatID\": \"!NCdzlIaMjZUmvmvyHU:beeper.com\",\n  \"messageID\": \"<string>\",\n  \"draftText\": \"<string>\",\n  \"draftAttachmentPath\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:23373",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4bbec435-f571-4b52-8e97-b909a39fe657",
+    "name": "Beeper Desktop Accounts App API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Beeper Desktop's local HTTP and WebSocket API. One auth flow and one chat shape work across WhatsApp, iMessage, Telegram, Slack, Matrix, Discord, Twitter/X, Signal, and more.\n\nBeeper is built on the Matrix standard. Identifiers and rich text use Matrix conventions: `mxc://` and `localmxc://` URLs reference media on the Matrix homeserver and on this device's local bridge respectively; message text is Matrix HTML on the wire; `@room` is a group-mention sentinel.\n\n## Quickstart\n1. Discover the server with `GET /v1/info`. The Desktop API is local-only unless the user has enabled remote access.\n2. Authenticate with an access token from Beeper Desktop, or run OAuth2 Authorization Code with PKCE under the OAuth tag.\n3. Call `GET /v1/accounts` to see connected Chat Accounts, then `GET /v1/chats` for the unified inbox.\n\n## WebSocket\nConnect to `/v1/ws` with the same Bearer token in the upgrade request. Browser `new WebSocket()` clients are not supported yet because browsers cannot set the Authorization header. After the server sends `ready`, send `{\"type\":\"subscriptions.set\",\"chatIDs\":[\"*\"]}` to receive every chat update, or pass specific chat IDs. The server replies with `subscriptions.updated`, then streams `chat.upserted`, `chat.deleted`, `message.upserted`, and `message.deleted`.\n\nDelivery is at-most-once. There is no replay on reconnect, and `seq` is per connection. Refetch via HTTP after a disconnect to reconcile drift. Initial subscription state is empty; `subscriptions.set` replaces previous state; `[\"*\"]` cannot be combined with specific chat IDs.\n\n## Conventions\n- IDs and cursors are opaque strings.\n- Timestamps are ISO 8601 with timezone, except OAuth fields that use Unix seconds per RFC.\n- Pagination is `cursor` plus `direction=before|after`.\n- Sends return a `pendingMessageID`; resolve it with `GET /v1/chats/{chatID}/messages/{messageID}` or wait for `message.upserted` over the WebSocket.\n- Optional fields may be omitted when unknown. Nullable write fields use `null` as an explicit clear operation.\n- Every response carries `X-Beeper-Desktop-Version` so clients can tell which app version produced it.\n\nContact Support:\n Name: Beeper\n Email: help@beeper.com",
+      "type": "text/plain"
+    }
+  }
+}

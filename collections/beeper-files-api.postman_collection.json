@@ -1,0 +1,2497 @@
+{
+  "item": [
+    {
+      "id": "5d8029aa-dca5-45ec-baad-91342f8afccf",
+      "name": "Files",
+      "description": {
+        "content": "File upload, download, and streaming helpers for message attachments and drafts.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "55fc0c25-46d7-4b0f-ac2e-650e56161644",
+          "name": "Download a file",
+          "request": {
+            "name": "Download a file",
+            "description": {
+              "content": "Download a Matrix file using its mxc:// or localmxc:// URL to the device running Beeper Desktop and return the local file URL.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "assets",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6198d624-a706-423b-bf20-4bdcaafdd51c",
+              "name": "Request executed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"mxc://example.org/Q4x9CqGz1pB3Oa6XgJ\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"srcURL\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4cb8710b-9fb5-4a62-95af-6808e9edb840",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"mxc://example.org/Q4x9CqGz1pB3Oa6XgJ\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2cffbfd-772c-4e6f-8602-997c564117c7",
+              "name": "Access token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"mxc://example.org/Q4x9CqGz1pB3Oa6XgJ\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "884e0c28-7851-4b17-b37a-cb7fdab54eab",
+              "name": "Access token does not have the required scope",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"mxc://example.org/Q4x9CqGz1pB3Oa6XgJ\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6b7c3d1-ec13-448d-b5d5-47f5ada5dae2",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"mxc://example.org/Q4x9CqGz1pB3Oa6XgJ\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "355d376d-a644-4432-acd8-0e4b728ec332",
+              "name": "Unprocessable entity - validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"mxc://example.org/Q4x9CqGz1pB3Oa6XgJ\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab48ae80-26ae-4929-8671-711c9b6ced19",
+              "name": "Too many requests - rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"mxc://example.org/Q4x9CqGz1pB3Oa6XgJ\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fd65993-d111-475e-926b-cf1adda650fe",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"mxc://example.org/Q4x9CqGz1pB3Oa6XgJ\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "46923257-7d25-4a0d-9ebb-f74afd5cb4bb",
+          "name": "Serve a file",
+          "request": {
+            "name": "Serve a file",
+            "description": {
+              "content": "Stream a file given an mxc://, localmxc://, or file:// URL. Downloads first if not cached. Supports Range requests for seeking in large files.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "assets",
+                "serve"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<string>",
+                  "description": "(Required) File URL to serve. Accepts mxc://, localmxc://, or file:// URLs."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/octet-stream"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ae030ab2-5bfc-41fb-bfae-d591984a84f4",
+              "name": "File stream",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "serve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "63e1a02b-a91d-45dc-b8d0-029872577b72",
+              "name": "Partial file stream",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "serve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Partial Content",
+              "code": 206,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ae358716-af77-46e5-ab6c-1c55b2827f57",
+              "name": "File not modified",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "serve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Modified",
+              "code": 304,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "19cd3604-00ca-43a6-b895-e0d1bf65a70b",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "serve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f5d6691-ed4a-4da4-8d13-68a336f1338a",
+              "name": "Access token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "serve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2bbabfa-871c-42a0-b618-8627c880371a",
+              "name": "Access token does not have the required scope",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "serve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5eeef1f-dcda-4fce-a73d-a2e08e6e7ef8",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "serve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d14e21b6-03ac-4d69-844b-61b4b2c2b1ca",
+              "name": "Requested range not satisfiable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "serve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Requested Range Not Satisfiable",
+              "code": 416,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c00530d1-0f98-4139-b08d-a737adc9cb37",
+              "name": "Unprocessable entity - validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "serve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e95c71f5-3f04-48f9-b9cd-c15db29acf57",
+              "name": "Too many requests - rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "serve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff3e9410-5c6b-44c4-a3c1-3f5c6085abcb",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "serve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ffb9886-49b0-42d8-8720-2ee658a35b56",
+          "name": "Upload a file",
+          "request": {
+            "name": "Upload a file",
+            "description": {
+              "content": "Upload a file to a temporary location using multipart/form-data. Returns an uploadID that can be referenced when sending a message or materializing a draft attachment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "assets",
+                "upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The file to upload (max 500 MB)."
+                },
+                {
+                  "key": "fileName",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Original filename. Defaults to the uploaded file name if omitted"
+                },
+                {
+                  "key": "mimeType",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "MIME type. Auto-detected from magic bytes if omitted"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "32c23a50-0bd6-4e1c-b242-e0144b6d9ec1",
+              "name": "Request executed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload (max 500 MB).",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Original filename. Defaults to the uploaded file name if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "fileName",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "MIME type. Auto-detected from magic bytes if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "mimeType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uploadID\": \"string\",\n  \"srcURL\": \"string\",\n  \"fileName\": \"string\",\n  \"mimeType\": \"string\",\n  \"fileSize\": 5901.896159073967,\n  \"width\": 3030.945175683795,\n  \"height\": 9582.687477352034,\n  \"duration\": 7241.993129475114,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "389e8e66-555e-4a09-a639-a36124165efe",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload (max 500 MB).",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Original filename. Defaults to the uploaded file name if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "fileName",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "MIME type. Auto-detected from magic bytes if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "mimeType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3440c4db-60c4-4659-99f9-85b44dbb4d3c",
+              "name": "Access token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload (max 500 MB).",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Original filename. Defaults to the uploaded file name if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "fileName",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "MIME type. Auto-detected from magic bytes if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "mimeType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "772f96e0-cd25-46a9-84c7-b4fd4186ccc0",
+              "name": "Access token does not have the required scope",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload (max 500 MB).",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Original filename. Defaults to the uploaded file name if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "fileName",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "MIME type. Auto-detected from magic bytes if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "mimeType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b71880f5-610e-4d4c-ace1-32c7b44e7811",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload (max 500 MB).",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Original filename. Defaults to the uploaded file name if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "fileName",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "MIME type. Auto-detected from magic bytes if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "mimeType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a7e92b7-5f65-44a5-9df9-b5196de3340e",
+              "name": "Unprocessable entity - validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload (max 500 MB).",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Original filename. Defaults to the uploaded file name if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "fileName",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "MIME type. Auto-detected from magic bytes if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "mimeType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cf54f3d-0aac-461e-9597-98710e71d908",
+              "name": "Too many requests - rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload (max 500 MB).",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Original filename. Defaults to the uploaded file name if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "fileName",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "MIME type. Auto-detected from magic bytes if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "mimeType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0401d2e-d555-4ffb-a533-e9e719021220",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload (max 500 MB).",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Original filename. Defaults to the uploaded file name if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "fileName",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "MIME type. Auto-detected from magic bytes if omitted",
+                        "type": "text/plain"
+                      },
+                      "key": "mimeType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3bc49a4d-650b-4327-b020-f909d71e9c4c",
+          "name": "Upload a file (base64)",
+          "request": {
+            "name": "Upload a file (base64)",
+            "description": {
+              "content": "Upload a file using a JSON body with base64-encoded content. Returns an uploadID that can be referenced when sending a message or materializing a draft attachment. Alternative to the multipart upload endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "assets",
+                "upload",
+                "base64"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"mimeType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f4f64abf-3948-43c7-9732-42daacbd1a15",
+              "name": "Request executed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload",
+                    "base64"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"mimeType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uploadID\": \"string\",\n  \"srcURL\": \"string\",\n  \"fileName\": \"string\",\n  \"mimeType\": \"string\",\n  \"fileSize\": 5901.896159073967,\n  \"width\": 3030.945175683795,\n  \"height\": 9582.687477352034,\n  \"duration\": 7241.993129475114,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "642222ac-24e1-414f-a159-adff48efff31",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload",
+                    "base64"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"mimeType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74e02e60-697b-4344-8c53-3f0d4d293fdd",
+              "name": "Access token is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload",
+                    "base64"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"mimeType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12de1ca3-9535-4fe4-afee-74553a860aff",
+              "name": "Access token does not have the required scope",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload",
+                    "base64"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"mimeType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "713103ec-fcfe-4d0f-b6c0-630b9f5542ca",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload",
+                    "base64"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"mimeType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e6dd572-db69-4b42-91e4-37d63b554692",
+              "name": "Unprocessable entity - validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload",
+                    "base64"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"mimeType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d32523b3-ab3a-455c-8e0e-58327f6da4a3",
+              "name": "Too many requests - rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload",
+                    "base64"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"mimeType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b820287-8c73-4eea-b74a-98630adcebec",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets",
+                    "upload",
+                    "base64"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"mimeType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Beeper Desktop application version providing this response.",
+                  "key": "X-Beeper-Desktop-Version",
+                  "value": "4.0.0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"issues\": [\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      },\n      {\n        \"code\": \"invalid_type\",\n        \"message\": \"string\",\n        \"path\": [\n          \"body\",\n          \"chatID\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:23373",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "090332cf-50cf-46ac-9da6-6d907230fdbb",
+    "name": "Beeper Desktop Accounts Files API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Beeper Desktop's local HTTP and WebSocket API. One auth flow and one chat shape work across WhatsApp, iMessage, Telegram, Slack, Matrix, Discord, Twitter/X, Signal, and more.\n\nBeeper is built on the Matrix standard. Identifiers and rich text use Matrix conventions: `mxc://` and `localmxc://` URLs reference media on the Matrix homeserver and on this device's local bridge respectively; message text is Matrix HTML on the wire; `@room` is a group-mention sentinel.\n\n## Quickstart\n1. Discover the server with `GET /v1/info`. The Desktop API is local-only unless the user has enabled remote access.\n2. Authenticate with an access token from Beeper Desktop, or run OAuth2 Authorization Code with PKCE under the OAuth tag.\n3. Call `GET /v1/accounts` to see connected Chat Accounts, then `GET /v1/chats` for the unified inbox.\n\n## WebSocket\nConnect to `/v1/ws` with the same Bearer token in the upgrade request. Browser `new WebSocket()` clients are not supported yet because browsers cannot set the Authorization header. After the server sends `ready`, send `{\"type\":\"subscriptions.set\",\"chatIDs\":[\"*\"]}` to receive every chat update, or pass specific chat IDs. The server replies with `subscriptions.updated`, then streams `chat.upserted`, `chat.deleted`, `message.upserted`, and `message.deleted`.\n\nDelivery is at-most-once. There is no replay on reconnect, and `seq` is per connection. Refetch via HTTP after a disconnect to reconcile drift. Initial subscription state is empty; `subscriptions.set` replaces previous state; `[\"*\"]` cannot be combined with specific chat IDs.\n\n## Conventions\n- IDs and cursors are opaque strings.\n- Timestamps are ISO 8601 with timezone, except OAuth fields that use Unix seconds per RFC.\n- Pagination is `cursor` plus `direction=before|after`.\n- Sends return a `pendingMessageID`; resolve it with `GET /v1/chats/{chatID}/messages/{messageID}` or wait for `message.upserted` over the WebSocket.\n- Optional fields may be omitted when unknown. Nullable write fields use `null` as an explicit clear operation.\n- Every response carries `X-Beeper-Desktop-Version` so clients can tell which app version produced it.\n\nContact Support:\n Name: Beeper\n Email: help@beeper.com",
+      "type": "text/plain"
+    }
+  }
+}

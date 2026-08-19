@@ -1,0 +1,346 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Beeper Desktop Accounts Messages API",
+    "version": "5.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:23373/v1/messages/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Literal word search (non-semantic). Finds messages containing these EXACT words in any order. Use single words users actually type, not concepts or phrases. Example: use \"dinner\" not \"dinner plans\", use \"sick\" not \"health issues\". If omitted, returns results filtered only by other parameters."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination cursor; do not inspect. Use together with 'direction'."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Pagination direction used with 'cursor': 'before' fetches older results, 'after' fetches newer results. Defaults to 'before' when only 'cursor' is provided."
+              },
+              {
+                "name": "chatIDs",
+                "value": "",
+                "type": "query",
+                "description": "Limit search to specific chat IDs."
+              },
+              {
+                "name": "accountIDs",
+                "value": "",
+                "type": "query",
+                "description": "Limit search to specific account IDs."
+              },
+              {
+                "name": "chatType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by chat type: 'group' for group chats, 'single' for 1:1 chats."
+              },
+              {
+                "name": "mediaTypes",
+                "value": "",
+                "type": "query",
+                "description": "Filter messages by media types. Use ['any'] for any media type, or specify exact types like ['video', 'image']. Omit for no media filtering."
+              },
+              {
+                "name": "sender",
+                "value": "",
+                "type": "query",
+                "description": "Filter by sender: 'me' (messages sent by the authenticated user), 'others' (messages sent by others), or a specific user ID string (user.id)."
+              },
+              {
+                "name": "dateAfter",
+                "value": "",
+                "type": "query",
+                "description": "Only include messages with timestamp strictly after this ISO 8601 datetime (e.g., '2024-07-01T00:00:00Z' or '2024-07-01T00:00:00+02:00')."
+              },
+              {
+                "name": "dateBefore",
+                "value": "",
+                "type": "query",
+                "description": "Only include messages with timestamp strictly before this ISO 8601 datetime (e.g., '2024-07-31T23:59:59Z' or '2024-07-31T23:59:59+02:00')."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of messages to return."
+              },
+              {
+                "name": "excludeLowPriority",
+                "value": "",
+                "type": "query",
+                "description": "Exclude messages marked Low Priority by the user. Default: true. Set to false to include all."
+              },
+              {
+                "name": "includeMuted",
+                "value": "",
+                "type": "query",
+                "description": "Include messages in chats marked as Muted by the user, which are usually less important. Default: true. Set to false if the user wants a more refined search."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search messages across chats."
+        },
+        {
+          "info": {
+            "name": "List messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:23373/v1/chats/:chatID/messages",
+            "params": [
+              {
+                "name": "chatID",
+                "value": "",
+                "type": "path",
+                "description": "Chat ID or local chat ID."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination cursor; do not inspect. Use together with 'direction'."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Pagination direction used with 'cursor': 'before' fetches older results, 'after' fetches newer results. Defaults to 'before' when only 'cursor' is provided."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all messages in a chat with cursor-based pagination. Sorted by timestamp."
+        },
+        {
+          "info": {
+            "name": "Send a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:23373/v1/chats/:chatID/messages",
+            "params": [
+              {
+                "name": "chatID",
+                "value": "",
+                "type": "path",
+                "description": "Chat ID or local chat ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send a text message to a specific chat. Supports replying to existing messages. Returns a pending message ID."
+        },
+        {
+          "info": {
+            "name": "Retrieve a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:23373/v1/chats/:chatID/messages/:messageID",
+            "params": [
+              {
+                "name": "chatID",
+                "value": "",
+                "type": "path",
+                "description": "Chat ID or local chat ID."
+              },
+              {
+                "name": "messageID",
+                "value": "",
+                "type": "path",
+                "description": "Message ID."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a message by final message ID, pendingMessageID, or Matrix event ID. Chat ID may be a Beeper chat ID or local chat ID."
+        },
+        {
+          "info": {
+            "name": "Edit a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:23373/v1/chats/:chatID/messages/:messageID",
+            "params": [
+              {
+                "name": "chatID",
+                "value": "",
+                "type": "path",
+                "description": "Chat ID or local chat ID."
+              },
+              {
+                "name": "messageID",
+                "value": "",
+                "type": "path",
+                "description": "Message ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Edit the text content of an existing message. Messages with attachments cannot be edited."
+        },
+        {
+          "info": {
+            "name": "Delete a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:23373/v1/chats/:chatID/messages/:messageID",
+            "params": [
+              {
+                "name": "chatID",
+                "value": "",
+                "type": "path",
+                "description": "Chat ID or local chat ID."
+              },
+              {
+                "name": "messageID",
+                "value": "",
+                "type": "path",
+                "description": "Message ID."
+              },
+              {
+                "name": "forEveryone",
+                "value": "",
+                "type": "query",
+                "description": "True to request deletion for everyone when the network supports it; false to delete only for the authenticated user when supported."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a message by final message ID. Pending message IDs are not accepted because messages cannot be deleted while sending."
+        },
+        {
+          "info": {
+            "name": "Add a reaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:23373/v1/chats/:chatID/messages/:messageID/reactions",
+            "params": [
+              {
+                "name": "chatID",
+                "value": "",
+                "type": "path",
+                "description": "Chat ID or local chat ID."
+              },
+              {
+                "name": "messageID",
+                "value": "",
+                "type": "path",
+                "description": "Message ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add a reaction to an existing message."
+        },
+        {
+          "info": {
+            "name": "Remove a reaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:23373/v1/chats/:chatID/messages/:messageID/reactions/:reactionKey",
+            "params": [
+              {
+                "name": "chatID",
+                "value": "",
+                "type": "path",
+                "description": "Chat ID or local chat ID."
+              },
+              {
+                "name": "messageID",
+                "value": "",
+                "type": "path",
+                "description": "Message ID."
+              },
+              {
+                "name": "reactionKey",
+                "value": "",
+                "type": "path",
+                "description": "Reaction key to remove (emoji, shortcode, or custom emoji key)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove the reaction added by the authenticated user from an existing message."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

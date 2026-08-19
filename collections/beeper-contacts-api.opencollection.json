@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Beeper Desktop Accounts Contacts API",
+    "version": "5.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:23373/v1/accounts/:accountID/contacts",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path",
+                "description": "Account ID this resource belongs to."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Text to search users by. Network-specific behavior."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search contacts on a specific account using merged account contacts, network search, and exact identifier lookup."
+        },
+        {
+          "info": {
+            "name": "List contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:23373/v1/accounts/:accountID/contacts/list",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path",
+                "description": "Account ID this resource belongs to."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination cursor; do not inspect. Use together with 'direction'."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Pagination direction used with 'cursor': 'before' fetches older results, 'after' fetches newer results. Defaults to 'before' when only 'cursor' is provided."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum contacts to return per page."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Optional search query for blended contact lookup."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List merged contacts for a specific account with cursor-based pagination."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

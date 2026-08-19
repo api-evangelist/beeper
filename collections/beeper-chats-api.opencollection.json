@@ -1,0 +1,400 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Beeper Desktop Accounts Chats API",
+    "version": "5.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search chats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:23373/v1/chats/search",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination cursor; do not inspect. Use together with 'direction'."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Pagination direction used with 'cursor': 'before' fetches older results, 'after' fetches newer results. Defaults to 'before' when only 'cursor' is provided."
+              },
+              {
+                "name": "inbox",
+                "value": "",
+                "type": "query",
+                "description": "Filter by inbox type: \"primary\" (non-archived, non-low-priority), \"low-priority\", or \"archive\". If not specified, shows all chats."
+              },
+              {
+                "name": "unreadOnly",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to only retrieve chats that have unread messages"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Set the maximum number of chats to retrieve. Valid range: 1-200, default is 50"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Specify the type of chats to retrieve: use \"single\" for direct messages, \"group\" for group chats, or \"any\" to get all types"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Literal token search (non-semantic). Use single words users type (e.g., \"dinner\"). When multiple words provided, ALL must match. Case-insensitive."
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Search scope: 'titles' matches title + network; 'participants' matches participant names."
+              },
+              {
+                "name": "lastActivityBefore",
+                "value": "",
+                "type": "query",
+                "description": "Provide an ISO datetime string to only retrieve chats with last activity before this time"
+              },
+              {
+                "name": "lastActivityAfter",
+                "value": "",
+                "type": "query",
+                "description": "Provide an ISO datetime string to only retrieve chats with last activity after this time"
+              },
+              {
+                "name": "accountIDs",
+                "value": "",
+                "type": "query",
+                "description": "Provide an array of account IDs to filter chats from specific messaging accounts only"
+              },
+              {
+                "name": "includeMuted",
+                "value": "",
+                "type": "query",
+                "description": "Include chats marked as Muted by the user, which are usually less important. Default: true. Set to false if the user wants a more refined search."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search chats by title, network, or participant names."
+        },
+        {
+          "info": {
+            "name": "List chats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:23373/v1/chats",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination cursor; do not inspect. Use together with 'direction'."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Pagination direction used with 'cursor': 'before' fetches older results, 'after' fetches newer results. Defaults to 'before' when only 'cursor' is provided."
+              },
+              {
+                "name": "accountIDs",
+                "value": "",
+                "type": "query",
+                "description": "Limit to specific account IDs. If omitted, fetches from all accounts."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all chats sorted by last activity (most recent first). Combines all accounts into a single paginated list."
+        },
+        {
+          "info": {
+            "name": "Create a chat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:23373/v1/chats",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a direct or group chat from participant IDs. Returns the created chat."
+        },
+        {
+          "info": {
+            "name": "Start a direct chat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:23373/v1/chats/start",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Resolve a user/contact and open a direct chat. Reuses and returns an existing direct chat when one is found. Available in Beeper Desktop v4.2.808+."
+        },
+        {
+          "info": {
+            "name": "Retrieve chat details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:23373/v1/chats/:chatID",
+            "params": [
+              {
+                "name": "chatID",
+                "value": "",
+                "type": "path",
+                "description": "Chat ID or local chat ID."
+              },
+              {
+                "name": "maxParticipantCount",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of participants to return. Use -1 for all; otherwise 0-500. Defaults to 100. List and search endpoints return up to 20 participants per chat."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve chat details including metadata, participants, and latest message"
+        },
+        {
+          "info": {
+            "name": "Update chat",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:23373/v1/chats/:chatID",
+            "params": [
+              {
+                "name": "chatID",
+                "value": "",
+                "type": "path",
+                "description": "Chat ID or local chat ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update supported chat fields. Non-empty draft objects are accepted only when the current draft is empty. Send draft=null to clear the draft before setting new draft text or attachments."
+        },
+        {
+          "info": {
+            "name": "Archive or unarchive a chat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:23373/v1/chats/:chatID/archive",
+            "params": [
+              {
+                "name": "chatID",
+                "value": "",
+                "type": "path",
+                "description": "Chat ID or local chat ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Archive or unarchive a chat. Set archived=true to move to archive, archived=false to move back to inbox"
+        },
+        {
+          "info": {
+            "name": "Create a chat reminder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:23373/v1/chats/:chatID/reminders",
+            "params": [
+              {
+                "name": "chatID",
+                "value": "",
+                "type": "path",
+                "description": "Chat ID or local chat ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Set a reminder for a chat at a specific time"
+        },
+        {
+          "info": {
+            "name": "Delete a chat reminder",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:23373/v1/chats/:chatID/reminders",
+            "params": [
+              {
+                "name": "chatID",
+                "value": "",
+                "type": "path",
+                "description": "Chat ID or local chat ID."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Clear an existing reminder from a chat"
+        },
+        {
+          "info": {
+            "name": "Mark a chat as read",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:23373/v1/chats/:chatID/read",
+            "params": [
+              {
+                "name": "chatID",
+                "value": "",
+                "type": "path",
+                "description": "Chat ID or local chat ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark a chat as read, optionally through a specific message ID."
+        },
+        {
+          "info": {
+            "name": "Mark a chat as unread",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:23373/v1/chats/:chatID/unread",
+            "params": [
+              {
+                "name": "chatID",
+                "value": "",
+                "type": "path",
+                "description": "Chat ID or local chat ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Mark a chat as unread, optionally from a specific message ID."
+        },
+        {
+          "info": {
+            "name": "Notify anyway",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:23373/v1/chats/:chatID/notify-anyway",
+            "params": [
+              {
+                "name": "chatID",
+                "value": "",
+                "type": "path",
+                "description": "Chat ID or local chat ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Force a delivery notification when supported by the underlying network. Currently intended for iMessage on macOS; unsupported networks return an error."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
