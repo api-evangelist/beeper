@@ -38,6 +38,16 @@ tags:
 - Consumer
 - Messaging
 - Chat
+- Communications
+- Matrix
+- MCP
+- Desktop
+- Aggregator
+tags_raw:
+- Company
+- Consumer
+- Messaging
+- Chat
 - Communication
 - Matrix
 - MCP
@@ -51,6 +61,8 @@ apis:
   humanURL: https://developers.beeper.com/desktop-api/
   baseURL: http://localhost:23373
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -102,6 +114,8 @@ apis:
   humanURL: https://developers.beeper.com/desktop-api/
   baseURL: http://localhost:23373
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
@@ -114,6 +128,8 @@ apis:
   humanURL: https://developers.beeper.com/desktop-api/
   baseURL: http://localhost:23373
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
