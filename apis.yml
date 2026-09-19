@@ -154,6 +154,8 @@ apis:
   humanURL: https://developers.beeper.com/desktop-api/
   baseURL: http://localhost:23373
   tags:
+  - Servers
+  tags_raw:
   - Server
   properties:
   - type: OpenAPI
