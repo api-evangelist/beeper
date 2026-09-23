@@ -1,13 +1,7 @@
 {
   "provider": "beeper",
   "sources": [
-    "beeper-accounts-api-openapi.yml",
-    "beeper-app-api-openapi.yml",
-    "beeper-chats-api-openapi.yml",
-    "beeper-contacts-api-openapi.yml",
-    "beeper-files-api-openapi.yml",
-    "beeper-messages-api-openapi.yml",
-    "beeper-server-api-openapi.yml"
+    "_original/beeper-desktop-api-openapi-original.yml"
   ],
   "outputs": [
     "beeper-accounts-api-openapi.yml",
@@ -21,6 +15,18 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "beeper-desktop-api-openapi-original.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "beeper-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "beeper-app-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "beeper-chats-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "beeper-contacts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "beeper-files-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "beeper-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "beeper-server-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

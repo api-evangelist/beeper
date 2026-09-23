@@ -1,43 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Beeper Desktop Accounts Chats API
+  title: Beeper Desktop Chats API
   version: 5.0.0
-  description: 'Beeper Desktop''s local HTTP and WebSocket API. One auth flow and one chat shape work across WhatsApp, iMessage, Telegram, Slack, Matrix, Discord, Twitter/X, Signal, and more.
-
-
-    Beeper is built on the Matrix standard. Identifiers and rich text use Matrix conventions: `mxc://` and `localmxc://` URLs reference media on the Matrix homeserver and on this device''s local bridge respectively; message text is Matrix HTML on the wire; `@room` is a group-mention sentinel.
-
-
-    ## Quickstart
-
-    1. Discover the server with `GET /v1/info`. The Desktop API is local-only unless the user has enabled remote access.
-
-    2. Authenticate with an access token from Beeper Desktop, or run OAuth2 Authorization Code with PKCE under the OAuth tag.
-
-    3. Call `GET /v1/accounts` to see connected Chat Accounts, then `GET /v1/chats` for the unified inbox.
-
-
-    ## WebSocket
-
-    Connect to `/v1/ws` with the same Bearer token in the upgrade request. Browser `new WebSocket()` clients are not supported yet because browsers cannot set the Authorization header. After the server sends `ready`, send `{"type":"subscriptions.set","chatIDs":["*"]}` to receive every chat update, or pass specific chat IDs. The server replies with `subscriptions.updated`, then streams `chat.upserted`, `chat.deleted`, `message.upserted`, and `message.deleted`.
-
-
-    Delivery is at-most-once. There is no replay on reconnect, and `seq` is per connection. Refetch via HTTP after a disconnect to reconcile drift. Initial subscription state is empty; `subscriptions.set` replaces previous state; `["*"]` cannot be combined with specific chat IDs.
-
-
-    ## Conventions
-
-    - IDs and cursors are opaque strings.
-
-    - Timestamps are ISO 8601 with timezone, except OAuth fields that use Unix seconds per RFC.
-
-    - Pagination is `cursor` plus `direction=before|after`.
-
-    - Sends return a `pendingMessageID`; resolve it with `GET /v1/chats/{chatID}/messages/{messageID}` or wait for `message.upserted` over the WebSocket.
-
-    - Optional fields may be omitted when unknown. Nullable write fields use `null` as an explicit clear operation.
-
-    - Every response carries `X-Beeper-Desktop-Version` so clients can tell which app version produced it.'
+  description: Beeper Desktop's local HTTP and WebSocket API.
   termsOfService: https://www.beeper.com/terms
   contact:
     name: Beeper
@@ -784,14 +749,199 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    DraftAttachmentInput:
-      allOf:
-      - $ref: '#/components/schemas/MessageAttachmentInput'
-      - type: object
-        properties:
-          id:
+    ChatStateCapabilities:
+      type: object
+      properties:
+        disappearingTimer:
+          type: object
+          properties:
+            level:
+              $ref: '#/components/schemas/CapabilitySupportLevel'
+          required:
+          - level
+          description: Disappearing-message timer state capability.
+        avatar:
+          type: object
+          properties:
+            level:
+              $ref: '#/components/schemas/CapabilitySupportLevel'
+          required:
+          - level
+          description: Chat avatar state capability.
+        title:
+          type: object
+          properties:
+            level:
+              $ref: '#/components/schemas/CapabilitySupportLevel'
+          required:
+          - level
+          description: Chat title state capability.
+        description:
+          type: object
+          properties:
+            level:
+              $ref: '#/components/schemas/CapabilitySupportLevel'
+          required:
+          - level
+          description: Chat description/topic state capability.
+      description: Chat state update capabilities.
+    StartChatInput:
+      type: object
+      properties:
+        accountID:
+          type: string
+          description: Account to create or start the chat on.
+        messageText:
+          type: string
+          description: Optional first message content if the platform requires it to create the chat.
+        user:
+          type: object
+          properties:
+            id:
+              type: string
+              description: Known user ID when available.
+            username:
+              type: string
+              description: Username/handle candidate.
+            phoneNumber:
+              type: string
+              description: Phone number candidate (E.164 preferred).
+            email:
+              type: string
+              description: Email candidate.
+            fullName:
+              type: string
+              description: Display name hint used for ranking only.
+          description: Merged user-like contact payload used to resolve the best identifier.
+        allowInvite:
+          type: boolean
+          default: true
+          description: Whether invite-based DM creation is allowed when required by the platform.
+      required:
+      - accountID
+      - user
+      description: Start a direct chat from a user/contact payload. Available in Beeper Desktop v4.2.808+.
+      x-beeper-available-since: Beeper Desktop v4.2.808+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Stable Beeper user ID. Use as the primary key when referencing a person.
+        username:
+          type: string
+          description: Human-readable handle if available (e.g., '@alice'). May be network-specific and not globally unique.
+        phoneNumber:
+          type: string
+          description: User's phone number in E.164 format (e.g., '+14155552671'). Omit if unknown.
+        email:
+          type: string
+          description: Email address if known. Not guaranteed verified.
+        fullName:
+          type: string
+          description: Display name as shown in clients (e.g., 'Alice Example'). May include emojis.
+        imgURL:
+          type: string
+          description: Avatar image URL if available. This may be a remote URL, Matrix media URL, data URL, or local filesystem URL depending on source and endpoint. May be temporary or local-only to this device; download promptly if durable access is needed.
+        cannotMessage:
+          type: boolean
+          description: True if Beeper cannot initiate messages to this user (e.g., blocked, network restriction, or no DM path). The user may still message you.
+        isSelf:
+          type: boolean
+          description: True if this user represents the authenticated account's own identity.
+      required:
+      - id
+      description: User the account belongs to.
+    ChatDraftInput:
+      type: object
+      nullable: true
+      properties:
+        text:
+          $ref: '#/components/schemas/MessageTextInput'
+        attachments:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/DraftAttachmentInput'
+          description: Draft attachments keyed by attachment ID. Each attachment must reference an uploadID returned by the upload file endpoint.
+      required:
+      - text
+      description: Draft object to set or clear. Non-empty drafts are only accepted when the current draft is empty. Send draft=null to clear text and attachments together before setting a new draft.
+    DraftAttachment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Draft attachment identifier.
+        type:
+          type: string
+          enum:
+          - file
+          - gif
+          - recorded_audio
+          description: Draft attachment type. GIF and recorded audio are mutually exclusive types.
+        mimeType:
+          type: string
+          description: MIME type if known.
+        fileName:
+          type: string
+          description: Original filename if available.
+        filePath:
+          type: string
+          description: Local filesystem path for the draft attachment.
+        fileSize:
+          type: number
+          description: File size in bytes if known.
+        stickerID:
+          type: string
+          description: Sticker identifier if the draft attachment is a sticker.
+        audioDurationSeconds:
+          type: number
+          description: Audio duration in seconds if known.
+        size:
+          type: object
+          properties:
+            width:
+              type: number
+            height:
+              type: number
+          description: Pixel dimensions of the attachment.
+      required:
+      - id
+      - type
+    SendStatus:
+      type: object
+      properties:
+        reason:
+          type: string
+          description: Machine-readable failure reason. Present when the send status is a failure.
+        message:
+          type: string
+          description: Human-readable send status or failure message.
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - PENDING
+          - FAIL_RETRIABLE
+          - FAIL_PERMANENT
+          description: Current status of the message send attempt.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp for the send status event.
+          example: '2025-08-31T23:30:12.520Z'
+        deliveredToUsers:
+          type: array
+          items:
             type: string
-            description: Optional draft attachment identifier. If omitted, a new identifier is generated.
+          description: User IDs the message was delivered to, when reported by the network.
+        internalError:
+          type: string
+          description: Internal bridge error detail. Intended for diagnostics, not end-user display.
+      required:
+      - status
+      - timestamp
+      description: Message send status for this message, when reported by the bridge.
     Message:
       type: object
       properties:
@@ -907,144 +1057,53 @@ components:
         mentions:
         - '@discord_337451892017545216:beeper.com'
         isUnread: false
-    SearchChatsOutput:
+    DraftAttachmentInput:
+      allOf:
+      - $ref: '#/components/schemas/MessageAttachmentInput'
+      - type: object
+        properties:
+          id:
+            type: string
+            description: Optional draft attachment identifier. If omitted, a new identifier is generated.
+    CreateChatInput:
       type: object
       properties:
-        items:
+        accountID:
+          type: string
+          description: Account to create or start the chat on.
+        messageText:
+          type: string
+          description: Optional first message content if the platform requires it to create the chat.
+        type:
+          type: string
+          enum:
+          - single
+          - group
+          description: '''single'' requires exactly one participantID; ''group'' supports multiple participants and optional title.'
+        participantIDs:
           type: array
           items:
-            $ref: '#/components/schemas/Chat'
-          description: Chats matching the filters.
-          x-stainless-pagination-property:
-            purpose: items
-        hasMore:
-          type: boolean
-          description: True if additional results can be fetched using the provided cursors.
-          x-stainless-pagination-property:
-            purpose: has_next_page
-        oldestCursor:
+            type: string
+          minItems: 1
+          description: User IDs to include in the new chat.
+        title:
           type: string
-          nullable: true
-          description: Cursor for fetching older results (use with direction='before'). Opaque string; do not inspect.
-          x-stainless-pagination-property:
-            purpose: next_cursor_field
-        newestCursor:
-          type: string
-          nullable: true
-          description: Cursor for fetching newer results (use with direction='after'). Opaque string; do not inspect.
+          description: Optional title for group chats; ignored for single chats on most networks.
       required:
-      - items
-      - hasMore
-      - oldestCursor
-      - newestCursor
-      example:
-        items:
-        - id: '!KPFTtZYWuERwib8T702N9IfqiCc:ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc.local-whatsapp.localhost'
-          localChatID: '1229391'
-          accountID: local-whatsapp_ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc
-          network: WhatsApp
-          title: Family Travel Planning
-          type: group
-          participants:
-            items:
-            - id: '@15550101002:local-whatsapp.localhost'
-              phoneNumber: '+15550101002'
-              fullName: Kishan Bagaria
-              cannotMessage: false
-              isSelf: false
-            - id: '@15550101003:local-whatsapp.localhost'
-              phoneNumber: '+15550101003'
-              fullName: Gerardo Rodrigez
-              cannotMessage: false
-              isSelf: false
-            hasMore: true
-            total: 5
-          lastActivity: '2025-08-31T19:41:41.000Z'
-          unreadCount: 3
-          lastReadMessageSortKey: '449706228480'
-          isArchived: false
-          isMuted: false
-          isPinned: true
-        - id: '!discord_109876543210987654:beeper.com'
-          localChatID: '1229078'
-          accountID: discordgo
-          network: Discord
-          title: Desktop API
-          type: group
-          participants:
-            items:
-            - id: '@discord_221590782384013314:beeper.com'
-              username: kishan
-              fullName: Kishan Bagaria
-              cannotMessage: false
-              isSelf: false
-            - id: '@discord_854231905641922560:beeper.com'
-              username: mattwondra
-              fullName: Matt Wondra
-              cannotMessage: false
-              isSelf: false
-            hasMore: true
-            total: 6
-          lastActivity: '2025-08-31T18:05:20.648Z'
-          unreadCount: 0
-          lastReadMessageSortKey: '449706782720'
-          isArchived: true
-          isMuted: false
-          isPinned: false
-        - id: '!twitter_dm_photomatt:local-twitter.localhost'
-          localChatID: '1228956'
-          accountID: local-twitter_ba_gUU1IHNGo_CsTZLp0vDFUYk9EuE
-          network: Twitter/X
-          title: Matt Mullenweg
-          type: single
-          participants:
-            items:
-            - id: '@photomatt:local-twitter.localhost'
-              username: photomatt
-              fullName: Matt Mullenweg
-              cannotMessage: false
-              isSelf: false
-            hasMore: false
-            total: 2
-          lastActivity: '2025-08-31T12:30:15.123Z'
-          unreadCount: 1
-          lastReadMessageSortKey: '449705982340'
-          isArchived: false
-          isMuted: true
-          isPinned: false
-        hasMore: true
-        oldestCursor: eyJ0cyI6MTc1NjY2NzEyMDY0OCwiaWQiOiIhS1BGVHRaWVd1RVJ3aWI4VDcwMjlOSWZxaUNjOmJhX0V2WURCQnNamlFSd0F5M1VPU1dxRzBMdVRWa2MiLCJzY29yZSI6MTJ9
-        newestCursor: eyJ0cyI6MTc1NjY2OTMwMTAwMCwiaWQiOiIhblplWDdkZDY3X1JhUG5tV0dKSWpVa1Yyc3ZFOmJhX3NYZjBhZG5icjI4Ny5sb2NhbC10ZWxlZ3JhbS5sb2NhbGhvc3QiLCJzY29yZSI6MTAuNX0=
-    User:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Stable Beeper user ID. Use as the primary key when referencing a person.
-        username:
-          type: string
-          description: Human-readable handle if available (e.g., '@alice'). May be network-specific and not globally unique.
-        phoneNumber:
-          type: string
-          description: User's phone number in E.164 format (e.g., '+14155552671'). Omit if unknown.
-        email:
-          type: string
-          description: Email address if known. Not guaranteed verified.
-        fullName:
-          type: string
-          description: Display name as shown in clients (e.g., 'Alice Example'). May include emojis.
-        imgURL:
-          type: string
-          description: Avatar image URL if available. This may be a remote URL, Matrix media URL, data URL, or local filesystem URL depending on source and endpoint. May be temporary or local-only to this device; download promptly if durable access is needed.
-        cannotMessage:
-          type: boolean
-          description: True if Beeper cannot initiate messages to this user (e.g., blocked, network restriction, or no DM path). The user may still message you.
-        isSelf:
-          type: boolean
-          description: True if this user represents the authenticated account's own identity.
-      required:
-      - id
-      description: User the account belongs to.
+      - accountID
+      - type
+      - participantIDs
+    MessageSeen:
+      anyOf:
+      - type: boolean
+        x-stainless-variantName: boolean
+      - type: string
+        format: date-time
+        description: ISO 8601 timestamp.
+        example: '2025-08-31T23:30:12.520Z'
+        x-stainless-variantName: timestamp
+      - $ref: '#/components/schemas/MessageSeenByParticipant'
+      description: Read receipt state for this message, when available.
     LinkPreview:
       type: object
       properties:
@@ -1078,37 +1137,122 @@ components:
       - url
       - title
       description: Link preview included with a message.
-    AttachmentCapabilities:
+    MessageAttachmentType:
+      type: string
+      enum:
+      - image
+      - video
+      - audio
+      - file
+      - gif
+      - voice-note
+      - sticker
+      description: Attachment type hint (image, video, audio, file, gif, voice-note, sticker). If omitted, auto-detected from mimeType
+    Participant:
+      allOf:
+      - $ref: '#/components/schemas/User'
+      - type: object
+        properties:
+          isAdmin:
+            type: boolean
+            description: True if this participant has admin privileges in the chat.
+          isPending:
+            type: boolean
+            description: True if this participant has been invited but has not joined yet.
+          isNetworkBot:
+            type: boolean
+            description: True if this participant represents a network or bridge bot.
+      description: A chat participant. Extends User with chat membership metadata.
+    MessageAttachmentInput:
       type: object
       properties:
-        mimeTypes:
+        uploadID:
+          type: string
+          description: Upload ID from uploadAsset endpoint. Required to reference uploaded files.
+        mimeType:
+          type: string
+          description: MIME type (optional override of cached value)
+        fileName:
+          type: string
+          description: Filename (optional override of cached value)
+        size:
+          type: object
+          properties:
+            width:
+              type: number
+            height:
+              type: number
+          required:
+          - width
+          - height
+          description: Dimensions (optional override of cached value)
+        duration:
+          type: number
+          description: Duration in seconds (optional override of cached value)
+        type:
+          $ref: '#/components/schemas/MessageAttachmentType'
+      required:
+      - uploadID
+    MessageSeenByParticipant:
+      type: object
+      additionalProperties:
+        anyOf:
+        - type: boolean
+          x-stainless-variantName: boolean
+        - type: string
+          format: date-time
+          description: ISO 8601 timestamp.
+          example: '2025-08-31T23:30:12.520Z'
+          x-stainless-variantName: timestamp
+      description: Group read receipt state keyed by participant ID.
+      x-stainless-variantName: by_participant
+    ListChatsOutput:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatWithPreview'
+          description: Chats ordered by last activity timestamp (most recent first).
+          x-stainless-pagination-property:
+            purpose: items
+        hasMore:
+          type: boolean
+          description: True if additional results can be fetched using the provided cursors.
+          x-stainless-pagination-property:
+            purpose: has_next_page
+        oldestCursor:
+          type: string
+          nullable: true
+          description: Cursor for fetching older results (use with direction='before'). Opaque string; do not inspect.
+          example: '1725489123456'
+          x-stainless-pagination-property:
+            purpose: next_cursor_field
+        newestCursor:
+          type: string
+          nullable: true
+          description: Cursor for fetching newer results (use with direction='after'). Opaque string; do not inspect.
+          example: '1725489123456'
+      required:
+      - items
+      - hasMore
+      - oldestCursor
+      - newestCursor
+    ChatDraft:
+      type: object
+      nullable: true
+      properties:
+        text:
+          type: string
+          description: Matrix HTML draft body.
+        attachments:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/CapabilitySupportLevel'
-          description: Supported MIME types or MIME patterns for this file message type. Missing MIME types should be treated as rejected.
-        caption:
-          $ref: '#/components/schemas/CapabilitySupportLevel'
-        maxCaptionLength:
-          type: integer
-          description: Maximum caption length when captions are supported.
-        maxSize:
-          type: integer
-          description: Maximum file size in bytes.
-        maxWidth:
-          type: integer
-          description: Maximum image or video width in pixels.
-        maxHeight:
-          type: integer
-          description: Maximum image or video height in pixels.
-        maxDuration:
-          type: integer
-          description: Maximum audio or video duration in seconds.
-        viewOnce:
-          type: boolean
-          description: True if this file type can be sent as view-once media.
+            $ref: '#/components/schemas/DraftAttachment'
+          description: Draft attachments keyed by attachment ID.
       required:
-      - mimeTypes
-      description: Capabilities for one attachment message type.
+      - text
+      description: Current draft object for this chat, or null when no draft is set.
     Chat:
       type: object
       properties:
@@ -1327,20 +1471,6 @@ components:
       required:
       - message
       - code
-    ChatDraftInput:
-      type: object
-      nullable: true
-      properties:
-        text:
-          $ref: '#/components/schemas/MessageTextInput'
-        attachments:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/DraftAttachmentInput'
-          description: Draft attachments keyed by attachment ID. Each attachment must reference an uploadID returned by the upload file endpoint.
-      required:
-      - text
-      description: Draft object to set or clear. Non-empty drafts are only accepted when the current draft is empty. Send draft=null to clear text and attachments together before setting a new draft.
     CreateChatOutput:
       allOf:
       - $ref: '#/components/schemas/Chat'
@@ -1400,100 +1530,263 @@ components:
         isArchived: false
         isMuted: false
         isPinned: false
-    ChatStateCapabilities:
+    ChatWithPreview:
+      allOf:
+      - $ref: '#/components/schemas/Chat'
+      - type: object
+        properties:
+          preview:
+            allOf:
+            - $ref: '#/components/schemas/Message'
+            - description: Last message preview for this chat, if available.
+      description: Chat with optional last message preview.
+      example:
+        id: '!whatsapp_15550101002:ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc.local-whatsapp.localhost'
+        localChatID: '5639'
+        accountID: local-whatsapp_ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc
+        network: WhatsApp
+        title: Kishan Bagaria
+        type: single
+        participants:
+          items:
+          - id: '@15550101002:local-whatsapp.localhost'
+            phoneNumber: '+15550101002'
+            fullName: Kishan Bagaria
+            cannotMessage: false
+            isSelf: false
+          - id: '@ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc:local-whatsapp.localhost'
+            fullName: Batuhan İçöz
+            cannotMessage: false
+            isSelf: true
+          hasMore: false
+          total: 2
+        lastActivity: '2026-05-05T20:11:54.000Z'
+        unreadCount: 0
+        lastReadMessageSortKey: '455171049984'
+        draft: null
+        isArchived: false
+        isMuted: false
+        isPinned: false
+    CapabilitySupportLevel:
+      type: integer
+      enum:
+      - -2
+      - -1
+      - 0
+      - 1
+      - 2
+      description: '-2: rejected, -1: dropped, 0: unsupported, 1: partially supported, 2: fully supported.'
+    SearchChatsOutput:
       type: object
       properties:
-        disappearingTimer:
-          type: object
-          properties:
-            level:
-              $ref: '#/components/schemas/CapabilitySupportLevel'
-          required:
-          - level
-          description: Disappearing-message timer state capability.
-        avatar:
-          type: object
-          properties:
-            level:
-              $ref: '#/components/schemas/CapabilitySupportLevel'
-          required:
-          - level
-          description: Chat avatar state capability.
-        title:
-          type: object
-          properties:
-            level:
-              $ref: '#/components/schemas/CapabilitySupportLevel'
-          required:
-          - level
-          description: Chat title state capability.
-        description:
-          type: object
-          properties:
-            level:
-              $ref: '#/components/schemas/CapabilitySupportLevel'
-          required:
-          - level
-          description: Chat description/topic state capability.
-      description: Chat state update capabilities.
-    MessageSeen:
-      anyOf:
-      - type: boolean
-        x-stainless-variantName: boolean
-      - type: string
-        format: date-time
-        description: ISO 8601 timestamp.
-        example: '2025-08-31T23:30:12.520Z'
-        x-stainless-variantName: timestamp
-      - $ref: '#/components/schemas/MessageSeenByParticipant'
-      description: Read receipt state for this message, when available.
-    MessageSeenByParticipant:
-      type: object
-      additionalProperties:
-        anyOf:
-        - type: boolean
-          x-stainless-variantName: boolean
-        - type: string
-          format: date-time
-          description: ISO 8601 timestamp.
-          example: '2025-08-31T23:30:12.520Z'
-          x-stainless-variantName: timestamp
-      description: Group read receipt state keyed by participant ID.
-      x-stainless-variantName: by_participant
-    SendStatus:
-      type: object
-      properties:
-        reason:
-          type: string
-          description: Machine-readable failure reason. Present when the send status is a failure.
-        message:
-          type: string
-          description: Human-readable send status or failure message.
-        status:
-          type: string
-          enum:
-          - SUCCESS
-          - PENDING
-          - FAIL_RETRIABLE
-          - FAIL_PERMANENT
-          description: Current status of the message send attempt.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp for the send status event.
-          example: '2025-08-31T23:30:12.520Z'
-        deliveredToUsers:
+        items:
           type: array
           items:
-            type: string
-          description: User IDs the message was delivered to, when reported by the network.
-        internalError:
+            $ref: '#/components/schemas/Chat'
+          description: Chats matching the filters.
+          x-stainless-pagination-property:
+            purpose: items
+        hasMore:
+          type: boolean
+          description: True if additional results can be fetched using the provided cursors.
+          x-stainless-pagination-property:
+            purpose: has_next_page
+        oldestCursor:
           type: string
-          description: Internal bridge error detail. Intended for diagnostics, not end-user display.
+          nullable: true
+          description: Cursor for fetching older results (use with direction='before'). Opaque string; do not inspect.
+          x-stainless-pagination-property:
+            purpose: next_cursor_field
+        newestCursor:
+          type: string
+          nullable: true
+          description: Cursor for fetching newer results (use with direction='after'). Opaque string; do not inspect.
       required:
-      - status
-      - timestamp
-      description: Message send status for this message, when reported by the bridge.
+      - items
+      - hasMore
+      - oldestCursor
+      - newestCursor
+      example:
+        items:
+        - id: '!KPFTtZYWuERwib8T702N9IfqiCc:ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc.local-whatsapp.localhost'
+          localChatID: '1229391'
+          accountID: local-whatsapp_ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc
+          network: WhatsApp
+          title: Family Travel Planning
+          type: group
+          participants:
+            items:
+            - id: '@15550101002:local-whatsapp.localhost'
+              phoneNumber: '+15550101002'
+              fullName: Kishan Bagaria
+              cannotMessage: false
+              isSelf: false
+            - id: '@15550101003:local-whatsapp.localhost'
+              phoneNumber: '+15550101003'
+              fullName: Gerardo Rodrigez
+              cannotMessage: false
+              isSelf: false
+            hasMore: true
+            total: 5
+          lastActivity: '2025-08-31T19:41:41.000Z'
+          unreadCount: 3
+          lastReadMessageSortKey: '449706228480'
+          isArchived: false
+          isMuted: false
+          isPinned: true
+        - id: '!discord_109876543210987654:beeper.com'
+          localChatID: '1229078'
+          accountID: discordgo
+          network: Discord
+          title: Desktop API
+          type: group
+          participants:
+            items:
+            - id: '@discord_221590782384013314:beeper.com'
+              username: kishan
+              fullName: Kishan Bagaria
+              cannotMessage: false
+              isSelf: false
+            - id: '@discord_854231905641922560:beeper.com'
+              username: mattwondra
+              fullName: Matt Wondra
+              cannotMessage: false
+              isSelf: false
+            hasMore: true
+            total: 6
+          lastActivity: '2025-08-31T18:05:20.648Z'
+          unreadCount: 0
+          lastReadMessageSortKey: '449706782720'
+          isArchived: true
+          isMuted: false
+          isPinned: false
+        - id: '!twitter_dm_photomatt:local-twitter.localhost'
+          localChatID: '1228956'
+          accountID: local-twitter_ba_gUU1IHNGo_CsTZLp0vDFUYk9EuE
+          network: Twitter/X
+          title: Matt Mullenweg
+          type: single
+          participants:
+            items:
+            - id: '@photomatt:local-twitter.localhost'
+              username: photomatt
+              fullName: Matt Mullenweg
+              cannotMessage: false
+              isSelf: false
+            hasMore: false
+            total: 2
+          lastActivity: '2025-08-31T12:30:15.123Z'
+          unreadCount: 1
+          lastReadMessageSortKey: '449705982340'
+          isArchived: false
+          isMuted: true
+          isPinned: false
+        hasMore: true
+        oldestCursor: eyJ0cyI6MTc1NjY2NzEyMDY0OCwiaWQiOiIhS1BGVHRaWVd1RVJ3aWI4VDcwMjlOSWZxaUNjOmJhX0V2WURCQnNamlFSd0F5M1VPU1dxRzBMdVRWa2MiLCJzY29yZSI6MTJ9
+        newestCursor: eyJ0cyI6MTc1NjY2OTMwMTAwMCwiaWQiOiIhblplWDdkZDY3X1JhUG5tV0dKSWpVa1Yyc3ZFOmJhX3NYZjBhZG5icjI4Ny5sb2NhbC10ZWxlZ3JhbS5sb2NhbGhvc3QiLCJzY29yZSI6MTAuNX0=
+    Transcription:
+      type: object
+      properties:
+        transcription:
+          type: string
+          description: Transcribed text.
+        engine:
+          type: string
+          description: Transcription engine.
+        language:
+          type: string
+          description: Detected or selected language.
+      required:
+      - transcription
+      - engine
+      description: Attachment transcription if available.
+    AttachmentCapabilities:
+      type: object
+      properties:
+        mimeTypes:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CapabilitySupportLevel'
+          description: Supported MIME types or MIME patterns for this file message type. Missing MIME types should be treated as rejected.
+        caption:
+          $ref: '#/components/schemas/CapabilitySupportLevel'
+        maxCaptionLength:
+          type: integer
+          description: Maximum caption length when captions are supported.
+        maxSize:
+          type: integer
+          description: Maximum file size in bytes.
+        maxWidth:
+          type: integer
+          description: Maximum image or video width in pixels.
+        maxHeight:
+          type: integer
+          description: Maximum image or video height in pixels.
+        maxDuration:
+          type: integer
+          description: Maximum audio or video duration in seconds.
+        viewOnce:
+          type: boolean
+          description: True if this file type can be sent as view-once media.
+      required:
+      - mimeTypes
+      description: Capabilities for one attachment message type.
+    MessageTextInput:
+      type: string
+      description: Draft text. Plain text and Markdown are converted to Matrix HTML with the same rules used by send and edit.
+    Attachment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Attachment identifier (typically an mxc:// URL). Use the download file endpoint to get a local file path.
+        type:
+          type: string
+          enum:
+          - unknown
+          - img
+          - video
+          - audio
+          description: Attachment type.
+        srcURL:
+          type: string
+          description: Public URL or local file path to fetch the file. May be temporary or local-only to this device; download promptly if durable access is needed.
+        mimeType:
+          type: string
+          description: MIME type if known (e.g., 'image/png').
+        fileName:
+          type: string
+          description: Original filename if available.
+        fileSize:
+          type: number
+          description: File size in bytes if known.
+        isGif:
+          type: boolean
+          description: True if the attachment is a GIF.
+        isSticker:
+          type: boolean
+          description: True if the attachment is a sticker.
+        isVoiceNote:
+          type: boolean
+          description: True if the attachment is a voice note.
+        duration:
+          type: number
+          description: Duration in seconds (audio/video).
+        transcription:
+          $ref: '#/components/schemas/Transcription'
+        posterImg:
+          type: string
+          description: Preview image URL for video attachments (poster frame). May be temporary or local-only to this device; download promptly if durable access is needed.
+        size:
+          type: object
+          properties:
+            width:
+              type: number
+            height:
+              type: number
+          description: 'Pixel dimensions of the attachment: width/height in px.'
+      required:
+      - type
     ChatCapabilities:
       type: object
       properties:
@@ -1610,295 +1903,6 @@ components:
         state:
           $ref: '#/components/schemas/ChatStateCapabilities'
       description: Chat capabilities reported by the platform.
-    StartChatInput:
-      type: object
-      properties:
-        accountID:
-          type: string
-          description: Account to create or start the chat on.
-        messageText:
-          type: string
-          description: Optional first message content if the platform requires it to create the chat.
-        user:
-          type: object
-          properties:
-            id:
-              type: string
-              description: Known user ID when available.
-            username:
-              type: string
-              description: Username/handle candidate.
-            phoneNumber:
-              type: string
-              description: Phone number candidate (E.164 preferred).
-            email:
-              type: string
-              description: Email candidate.
-            fullName:
-              type: string
-              description: Display name hint used for ranking only.
-          description: Merged user-like contact payload used to resolve the best identifier.
-        allowInvite:
-          type: boolean
-          default: true
-          description: Whether invite-based DM creation is allowed when required by the platform.
-      required:
-      - accountID
-      - user
-      description: Start a direct chat from a user/contact payload. Available in Beeper Desktop v4.2.808+.
-      x-beeper-available-since: Beeper Desktop v4.2.808+
-    MessageTextInput:
-      type: string
-      description: Draft text. Plain text and Markdown are converted to Matrix HTML with the same rules used by send and edit.
-    ChatWithPreview:
-      allOf:
-      - $ref: '#/components/schemas/Chat'
-      - type: object
-        properties:
-          preview:
-            allOf:
-            - $ref: '#/components/schemas/Message'
-            - description: Last message preview for this chat, if available.
-      description: Chat with optional last message preview.
-      example:
-        id: '!whatsapp_15550101002:ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc.local-whatsapp.localhost'
-        localChatID: '5639'
-        accountID: local-whatsapp_ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc
-        network: WhatsApp
-        title: Kishan Bagaria
-        type: single
-        participants:
-          items:
-          - id: '@15550101002:local-whatsapp.localhost'
-            phoneNumber: '+15550101002'
-            fullName: Kishan Bagaria
-            cannotMessage: false
-            isSelf: false
-          - id: '@ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc:local-whatsapp.localhost'
-            fullName: Batuhan İçöz
-            cannotMessage: false
-            isSelf: true
-          hasMore: false
-          total: 2
-        lastActivity: '2026-05-05T20:11:54.000Z'
-        unreadCount: 0
-        lastReadMessageSortKey: '455171049984'
-        draft: null
-        isArchived: false
-        isMuted: false
-        isPinned: false
-    DraftAttachment:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Draft attachment identifier.
-        type:
-          type: string
-          enum:
-          - file
-          - gif
-          - recorded_audio
-          description: Draft attachment type. GIF and recorded audio are mutually exclusive types.
-        mimeType:
-          type: string
-          description: MIME type if known.
-        fileName:
-          type: string
-          description: Original filename if available.
-        filePath:
-          type: string
-          description: Local filesystem path for the draft attachment.
-        fileSize:
-          type: number
-          description: File size in bytes if known.
-        stickerID:
-          type: string
-          description: Sticker identifier if the draft attachment is a sticker.
-        audioDurationSeconds:
-          type: number
-          description: Audio duration in seconds if known.
-        size:
-          type: object
-          properties:
-            width:
-              type: number
-            height:
-              type: number
-          description: Pixel dimensions of the attachment.
-      required:
-      - id
-      - type
-    MessageAttachmentInput:
-      type: object
-      properties:
-        uploadID:
-          type: string
-          description: Upload ID from uploadAsset endpoint. Required to reference uploaded files.
-        mimeType:
-          type: string
-          description: MIME type (optional override of cached value)
-        fileName:
-          type: string
-          description: Filename (optional override of cached value)
-        size:
-          type: object
-          properties:
-            width:
-              type: number
-            height:
-              type: number
-          required:
-          - width
-          - height
-          description: Dimensions (optional override of cached value)
-        duration:
-          type: number
-          description: Duration in seconds (optional override of cached value)
-        type:
-          $ref: '#/components/schemas/MessageAttachmentType'
-      required:
-      - uploadID
-    Attachment:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Attachment identifier (typically an mxc:// URL). Use the download file endpoint to get a local file path.
-        type:
-          type: string
-          enum:
-          - unknown
-          - img
-          - video
-          - audio
-          description: Attachment type.
-        srcURL:
-          type: string
-          description: Public URL or local file path to fetch the file. May be temporary or local-only to this device; download promptly if durable access is needed.
-        mimeType:
-          type: string
-          description: MIME type if known (e.g., 'image/png').
-        fileName:
-          type: string
-          description: Original filename if available.
-        fileSize:
-          type: number
-          description: File size in bytes if known.
-        isGif:
-          type: boolean
-          description: True if the attachment is a GIF.
-        isSticker:
-          type: boolean
-          description: True if the attachment is a sticker.
-        isVoiceNote:
-          type: boolean
-          description: True if the attachment is a voice note.
-        duration:
-          type: number
-          description: Duration in seconds (audio/video).
-        transcription:
-          $ref: '#/components/schemas/Transcription'
-        posterImg:
-          type: string
-          description: Preview image URL for video attachments (poster frame). May be temporary or local-only to this device; download promptly if durable access is needed.
-        size:
-          type: object
-          properties:
-            width:
-              type: number
-            height:
-              type: number
-          description: 'Pixel dimensions of the attachment: width/height in px.'
-      required:
-      - type
-    CreateChatInput:
-      type: object
-      properties:
-        accountID:
-          type: string
-          description: Account to create or start the chat on.
-        messageText:
-          type: string
-          description: Optional first message content if the platform requires it to create the chat.
-        type:
-          type: string
-          enum:
-          - single
-          - group
-          description: '''single'' requires exactly one participantID; ''group'' supports multiple participants and optional title.'
-        participantIDs:
-          type: array
-          items:
-            type: string
-          minItems: 1
-          description: User IDs to include in the new chat.
-        title:
-          type: string
-          description: Optional title for group chats; ignored for single chats on most networks.
-      required:
-      - accountID
-      - type
-      - participantIDs
-    MessageAttachmentType:
-      type: string
-      enum:
-      - image
-      - video
-      - audio
-      - file
-      - gif
-      - voice-note
-      - sticker
-      description: Attachment type hint (image, video, audio, file, gif, voice-note, sticker). If omitted, auto-detected from mimeType
-    Transcription:
-      type: object
-      properties:
-        transcription:
-          type: string
-          description: Transcribed text.
-        engine:
-          type: string
-          description: Transcription engine.
-        language:
-          type: string
-          description: Detected or selected language.
-      required:
-      - transcription
-      - engine
-      description: Attachment transcription if available.
-    ListChatsOutput:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChatWithPreview'
-          description: Chats ordered by last activity timestamp (most recent first).
-          x-stainless-pagination-property:
-            purpose: items
-        hasMore:
-          type: boolean
-          description: True if additional results can be fetched using the provided cursors.
-          x-stainless-pagination-property:
-            purpose: has_next_page
-        oldestCursor:
-          type: string
-          nullable: true
-          description: Cursor for fetching older results (use with direction='before'). Opaque string; do not inspect.
-          example: '1725489123456'
-          x-stainless-pagination-property:
-            purpose: next_cursor_field
-        newestCursor:
-          type: string
-          nullable: true
-          description: Cursor for fetching newer results (use with direction='after'). Opaque string; do not inspect.
-          example: '1725489123456'
-      required:
-      - items
-      - hasMore
-      - oldestCursor
-      - newestCursor
     Reaction:
       type: object
       properties:
@@ -1921,48 +1925,27 @@ components:
       - id
       - reactionKey
       - participantID
-    ChatDraft:
-      type: object
-      nullable: true
-      properties:
-        text:
-          type: string
-          description: Matrix HTML draft body.
-        attachments:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/DraftAttachment'
-          description: Draft attachments keyed by attachment ID.
-      required:
-      - text
-      description: Current draft object for this chat, or null when no draft is set.
-    Participant:
-      allOf:
-      - $ref: '#/components/schemas/User'
-      - type: object
-        properties:
-          isAdmin:
-            type: boolean
-            description: True if this participant has admin privileges in the chat.
-          isPending:
-            type: boolean
-            description: True if this participant has been invited but has not joined yet.
-          isNetworkBot:
-            type: boolean
-            description: True if this participant represents a network or bridge bot.
-      description: A chat participant. Extends User with chat membership metadata.
-    CapabilitySupportLevel:
-      type: integer
-      enum:
-      - -2
-      - -1
-      - 0
-      - 1
-      - 2
-      description: '-2: rejected, -1: dropped, 0: unsupported, 1: partially supported, 2: fully supported.'
   responses:
+    ForbiddenError:
+      description: Access token does not have the required scope
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     UnauthorizedError:
       description: Access token is missing or invalid
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests - rate limit exceeded
       headers:
         X-Beeper-Desktop-Version:
           $ref: '#/components/headers/X-Beeper-Desktop-Version'
@@ -1988,15 +1971,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests - rate limit exceeded
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Invalid request parameters
       headers:
@@ -2008,15 +1982,6 @@ components:
             $ref: '#/components/schemas/Error'
     UnprocessableEntity:
       description: Unprocessable entity - validation error
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ForbiddenError:
-      description: Access token does not have the required scope
       headers:
         X-Beeper-Desktop-Version:
           $ref: '#/components/headers/X-Beeper-Desktop-Version'
