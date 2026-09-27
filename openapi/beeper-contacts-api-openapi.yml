@@ -158,103 +158,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  responses:
-    UnauthorizedError:
-      description: Access token is missing or invalid
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Internal server error
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ForbiddenError:
-      description: Access token does not have the required scope
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: Unprocessable entity - validation error
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests - rate limit exceeded
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    ListContactsOutput:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/User'
-            - description: A person on or reachable through Beeper. Values are best-effort and can vary by network.
-          description: Merged contacts for the selected account.
-          x-stainless-pagination-property:
-            purpose: items
-        hasMore:
-          type: boolean
-          description: True if additional results can be fetched using the provided cursors.
-          x-stainless-pagination-property:
-            purpose: has_next_page
-        oldestCursor:
-          type: string
-          nullable: true
-          description: Cursor for fetching older results (use with direction='before'). Opaque string; do not inspect.
-          x-stainless-pagination-property:
-            purpose: next_cursor_field
-        newestCursor:
-          type: string
-          nullable: true
-          description: Cursor for fetching newer results (use with direction='after'). Opaque string; do not inspect.
-      required:
-      - items
-      - hasMore
-      - oldestCursor
-      - newestCursor
     User:
       type: object
       properties:
@@ -296,6 +200,38 @@ components:
             - description: A person on or reachable through Beeper. Values are best-effort and can vary by network.
       required:
       - items
+    ListContactsOutput:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/User'
+            - description: A person on or reachable through Beeper. Values are best-effort and can vary by network.
+          description: Merged contacts for the selected account.
+          x-stainless-pagination-property:
+            purpose: items
+        hasMore:
+          type: boolean
+          description: True if additional results can be fetched using the provided cursors.
+          x-stainless-pagination-property:
+            purpose: has_next_page
+        oldestCursor:
+          type: string
+          nullable: true
+          description: Cursor for fetching older results (use with direction='before'). Opaque string; do not inspect.
+          x-stainless-pagination-property:
+            purpose: next_cursor_field
+        newestCursor:
+          type: string
+          nullable: true
+          description: Cursor for fetching newer results (use with direction='after'). Opaque string; do not inspect.
+      required:
+      - items
+      - hasMore
+      - oldestCursor
+      - newestCursor
     Error:
       type: object
       properties:
@@ -357,6 +293,70 @@ components:
       required:
       - message
       - code
+  responses:
+    InternalServerError:
+      description: Internal server error
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnauthorizedError:
+      description: Access token is missing or invalid
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Unprocessable entity - validation error
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests - rate limit exceeded
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ForbiddenError:
+      description: Access token does not have the required scope
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   headers:
     X-Beeper-Desktop-Version:
       description: Beeper Desktop application version providing this response.

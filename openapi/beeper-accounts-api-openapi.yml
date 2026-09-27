@@ -55,6 +55,78 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
+    GetAccountsOutput:
+      type: array
+      items:
+        $ref: '#/components/schemas/Account'
+      description: Accounts configured on this device. Includes accountID, bridge metadata, optional network name, and user identity.
+      example:
+      - accountID: matrix
+        bridge:
+          id: matrix
+          type: matrix
+          provider: cloud
+        network: Beeper
+        user:
+          id: '@batuhan:beeper.com'
+          username: batuhan:beeper.com
+          email: batuhan@example.com
+          fullName: Batuhan İçöz
+          isSelf: true
+      - accountID: discordgo
+        bridge:
+          id: discordgo
+          type: discordgo
+          provider: cloud
+        network: Discord
+        user:
+          id: '221590782384013314'
+          username: batuhanicoz
+          fullName: Batuhan İçöz
+          imgURL: file:///Users/batuhan/Library/Application%20Support/BeeperTexts/media/local.beeper.com/batuhan_jmaNwqQPUITme6VV5OSXhH3ZYpmi9UyaYQ43S2UA9qkkzy11Q9JUAiv8TYmOkoQr
+          isSelf: true
+      - accountID: local-whatsapp_ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc
+        bridge:
+          id: local-whatsapp
+          type: whatsapp
+          provider: local
+        network: WhatsApp
+        user:
+          id: ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc
+          phoneNumber: '+15550101001'
+          fullName: Batuhan İçöz
+          imgURL: file:///Users/batuhan/Library/Application%20Support/BeeperTexts/media/localhostlocal-whatsapp/_gkBAAAAB1xsnfQKMTcwOTkzODU5MAkBAAAAB1xsnfQ
+          isSelf: true
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Stable Beeper user ID. Use as the primary key when referencing a person.
+        username:
+          type: string
+          description: Human-readable handle if available (e.g., '@alice'). May be network-specific and not globally unique.
+        phoneNumber:
+          type: string
+          description: User's phone number in E.164 format (e.g., '+14155552671'). Omit if unknown.
+        email:
+          type: string
+          description: Email address if known. Not guaranteed verified.
+        fullName:
+          type: string
+          description: Display name as shown in clients (e.g., 'Alice Example'). May include emojis.
+        imgURL:
+          type: string
+          description: Avatar image URL if available. This may be a remote URL, Matrix media URL, data URL, or local filesystem URL depending on source and endpoint. May be temporary or local-only to this device; download promptly if durable access is needed.
+        cannotMessage:
+          type: boolean
+          description: True if Beeper cannot initiate messages to this user (e.g., blocked, network restriction, or no DM path). The user may still message you.
+        isSelf:
+          type: boolean
+          description: True if this user represents the authenticated account's own identity.
+      required:
+      - id
+      description: User the account belongs to.
     Account:
       type: object
       properties:
@@ -96,36 +168,6 @@ components:
       - provider
       description: Bridge metadata for the account. Available in Beeper Desktop v4.2.785+.
       x-beeper-available-since: Beeper Desktop v4.2.785+
-    User:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Stable Beeper user ID. Use as the primary key when referencing a person.
-        username:
-          type: string
-          description: Human-readable handle if available (e.g., '@alice'). May be network-specific and not globally unique.
-        phoneNumber:
-          type: string
-          description: User's phone number in E.164 format (e.g., '+14155552671'). Omit if unknown.
-        email:
-          type: string
-          description: Email address if known. Not guaranteed verified.
-        fullName:
-          type: string
-          description: Display name as shown in clients (e.g., 'Alice Example'). May include emojis.
-        imgURL:
-          type: string
-          description: Avatar image URL if available. This may be a remote URL, Matrix media URL, data URL, or local filesystem URL depending on source and endpoint. May be temporary or local-only to this device; download promptly if durable access is needed.
-        cannotMessage:
-          type: boolean
-          description: True if Beeper cannot initiate messages to this user (e.g., blocked, network restriction, or no DM path). The user may still message you.
-        isSelf:
-          type: boolean
-          description: True if this user represents the authenticated account's own identity.
-      required:
-      - id
-      description: User the account belongs to.
     Error:
       type: object
       properties:
@@ -187,58 +229,7 @@ components:
       required:
       - message
       - code
-    GetAccountsOutput:
-      type: array
-      items:
-        $ref: '#/components/schemas/Account'
-      description: Accounts configured on this device. Includes accountID, bridge metadata, optional network name, and user identity.
-      example:
-      - accountID: matrix
-        bridge:
-          id: matrix
-          type: matrix
-          provider: cloud
-        network: Beeper
-        user:
-          id: '@batuhan:beeper.com'
-          username: batuhan:beeper.com
-          email: batuhan@example.com
-          fullName: Batuhan İçöz
-          isSelf: true
-      - accountID: discordgo
-        bridge:
-          id: discordgo
-          type: discordgo
-          provider: cloud
-        network: Discord
-        user:
-          id: '221590782384013314'
-          username: batuhanicoz
-          fullName: Batuhan İçöz
-          imgURL: file:///Users/batuhan/Library/Application%20Support/BeeperTexts/media/local.beeper.com/batuhan_jmaNwqQPUITme6VV5OSXhH3ZYpmi9UyaYQ43S2UA9qkkzy11Q9JUAiv8TYmOkoQr
-          isSelf: true
-      - accountID: local-whatsapp_ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc
-        bridge:
-          id: local-whatsapp
-          type: whatsapp
-          provider: local
-        network: WhatsApp
-        user:
-          id: ba_EvYDBBsZbRQAy3UOSWqG0LuTVkc
-          phoneNumber: '+15550101001'
-          fullName: Batuhan İçöz
-          imgURL: file:///Users/batuhan/Library/Application%20Support/BeeperTexts/media/localhostlocal-whatsapp/_gkBAAAAB1xsnfQKMTcwOTkzODU5MAkBAAAAB1xsnfQ
-          isSelf: true
   responses:
-    UnauthorizedError:
-      description: Access token is missing or invalid
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     InternalServerError:
       description: Internal server error
       headers:
@@ -248,26 +239,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ForbiddenError:
-      description: Access token does not have the required scope
+    UnauthorizedError:
+      description: Access token is missing or invalid
       headers:
         X-Beeper-Desktop-Version:
           $ref: '#/components/headers/X-Beeper-Desktop-Version'
@@ -286,6 +259,33 @@ components:
             $ref: '#/components/schemas/Error'
     TooManyRequests:
       description: Too many requests - rate limit exceeded
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ForbiddenError:
+      description: Access token does not have the required scope
       headers:
         X-Beeper-Desktop-Version:
           $ref: '#/components/headers/X-Beeper-Desktop-Version'

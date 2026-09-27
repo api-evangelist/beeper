@@ -55,6 +55,7 @@ tags:
 - MCP
 - Desktop
 - Aggregator
+- Real-Time
 tags_raw:
 - Company
 - Consumer
@@ -65,6 +66,7 @@ tags_raw:
 - MCP
 - Desktop
 - Aggregator
+- Real-Time
 apis:
 - aid: beeper:beeper-accounts-api
   name: Beeper Accounts API

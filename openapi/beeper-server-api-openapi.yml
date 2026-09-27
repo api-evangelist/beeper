@@ -41,6 +41,12 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
+  headers:
+    X-Beeper-Desktop-Version:
+      description: Beeper Desktop application version providing this response.
+      schema:
+        type: string
+        example: 4.0.0
   schemas:
     Error:
       type: object
@@ -215,12 +221,6 @@ components:
       - platform
       - server
       - endpoints
-  headers:
-    X-Beeper-Desktop-Version:
-      description: Beeper Desktop application version providing this response.
-      schema:
-        type: string
-        example: 4.0.0
   responses:
     InternalServerError:
       description: Internal server error
