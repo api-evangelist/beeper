@@ -54,7 +54,101 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests - rate limit exceeded
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Unprocessable entity - validation error
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Internal server error
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ForbiddenError:
+      description: Access token does not have the required scope
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Stable Beeper user ID. Use as the primary key when referencing a person.
+        username:
+          type: string
+          description: Human-readable handle if available (e.g., '@alice'). May be network-specific and not globally unique.
+        phoneNumber:
+          type: string
+          description: User's phone number in E.164 format (e.g., '+14155552671'). Omit if unknown.
+        email:
+          type: string
+          description: Email address if known. Not guaranteed verified.
+        fullName:
+          type: string
+          description: Display name as shown in clients (e.g., 'Alice Example'). May include emojis.
+        imgURL:
+          type: string
+          description: Avatar image URL if available. This may be a remote URL, Matrix media URL, data URL, or local filesystem URL depending on source and endpoint. May be temporary or local-only to this device; download promptly if durable access is needed.
+        cannotMessage:
+          type: boolean
+          description: True if Beeper cannot initiate messages to this user (e.g., blocked, network restriction, or no DM path). The user may still message you.
+        isSelf:
+          type: boolean
+          description: True if this user represents the authenticated account's own identity.
+      required:
+      - id
+      description: User the account belongs to.
     GetAccountsOutput:
       type: array
       items:
@@ -97,36 +191,6 @@ components:
           fullName: Batuhan İçöz
           imgURL: file:///Users/batuhan/Library/Application%20Support/BeeperTexts/media/localhostlocal-whatsapp/_gkBAAAAB1xsnfQKMTcwOTkzODU5MAkBAAAAB1xsnfQ
           isSelf: true
-    User:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Stable Beeper user ID. Use as the primary key when referencing a person.
-        username:
-          type: string
-          description: Human-readable handle if available (e.g., '@alice'). May be network-specific and not globally unique.
-        phoneNumber:
-          type: string
-          description: User's phone number in E.164 format (e.g., '+14155552671'). Omit if unknown.
-        email:
-          type: string
-          description: Email address if known. Not guaranteed verified.
-        fullName:
-          type: string
-          description: Display name as shown in clients (e.g., 'Alice Example'). May include emojis.
-        imgURL:
-          type: string
-          description: Avatar image URL if available. This may be a remote URL, Matrix media URL, data URL, or local filesystem URL depending on source and endpoint. May be temporary or local-only to this device; download promptly if durable access is needed.
-        cannotMessage:
-          type: boolean
-          description: True if Beeper cannot initiate messages to this user (e.g., blocked, network restriction, or no DM path). The user may still message you.
-        isSelf:
-          type: boolean
-          description: True if this user represents the authenticated account's own identity.
-      required:
-      - id
-      description: User the account belongs to.
     Account:
       type: object
       properties:
@@ -229,70 +293,6 @@ components:
       required:
       - message
       - code
-  responses:
-    InternalServerError:
-      description: Internal server error
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnauthorizedError:
-      description: Access token is missing or invalid
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: Unprocessable entity - validation error
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests - rate limit exceeded
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ForbiddenError:
-      description: Access token does not have the required scope
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   headers:
     X-Beeper-Desktop-Version:
       description: Beeper Desktop application version providing this response.
