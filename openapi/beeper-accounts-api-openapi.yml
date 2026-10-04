@@ -55,8 +55,8 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   responses:
-    UnauthorizedError:
-      description: Access token is missing or invalid
+    UnprocessableEntity:
+      description: Unprocessable entity - validation error
       headers:
         X-Beeper-Desktop-Version:
           $ref: '#/components/headers/X-Beeper-Desktop-Version'
@@ -73,8 +73,17 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: Unprocessable entity - validation error
+    BadRequest:
+      description: Invalid request parameters
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnauthorizedError:
+      description: Access token is missing or invalid
       headers:
         X-Beeper-Desktop-Version:
           $ref: '#/components/headers/X-Beeper-Desktop-Version'
@@ -84,15 +93,6 @@ components:
             $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
       headers:
         X-Beeper-Desktop-Version:
           $ref: '#/components/headers/X-Beeper-Desktop-Version'
@@ -118,6 +118,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  headers:
+    X-Beeper-Desktop-Version:
+      description: Beeper Desktop application version providing this response.
+      schema:
+        type: string
+        example: 4.0.0
   schemas:
     User:
       type: object
@@ -149,6 +155,47 @@ components:
       required:
       - id
       description: User the account belongs to.
+    Bridge:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Bridge instance identifier. Matrix and cloud bridges often use the bridge type (for example matrix or discordgo); local bridges use a local bridge ID (for example local-whatsapp). Available in Beeper Desktop v4.2.785+.
+        type:
+          type: string
+          description: Bridge type, such as matrix, discordgo, slackgo, whatsapp, telegram, or twitter. Available in Beeper Desktop v4.2.785+.
+        provider:
+          type: string
+          enum:
+          - cloud
+          - self-hosted
+          - local
+          - platform-sdk
+          description: Bridge provider for the account. Available in Beeper Desktop v4.2.785+.
+      required:
+      - id
+      - type
+      - provider
+      description: Bridge metadata for the account. Available in Beeper Desktop v4.2.785+.
+      x-beeper-available-since: Beeper Desktop v4.2.785+
+    Account:
+      type: object
+      properties:
+        accountID:
+          type: string
+          description: Chat account added to Beeper. Use this to route account-scoped actions. Examples include matrix for Beeper/Matrix, discordgo for a cloud bridge, slackgo.TEAM-USER for workspace-scoped cloud bridges, and local-whatsapp_ba_... for local bridges.
+        bridge:
+          $ref: '#/components/schemas/Bridge'
+        network:
+          type: string
+          description: Human-friendly network name for the account. Omitted when the network is unknown.
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - accountID
+      - bridge
+      - user
+      description: A chat account added to Beeper.
     GetAccountsOutput:
       type: array
       items:
@@ -191,47 +238,6 @@ components:
           fullName: Batuhan İçöz
           imgURL: file:///Users/batuhan/Library/Application%20Support/BeeperTexts/media/localhostlocal-whatsapp/_gkBAAAAB1xsnfQKMTcwOTkzODU5MAkBAAAAB1xsnfQ
           isSelf: true
-    Account:
-      type: object
-      properties:
-        accountID:
-          type: string
-          description: Chat account added to Beeper. Use this to route account-scoped actions. Examples include matrix for Beeper/Matrix, discordgo for a cloud bridge, slackgo.TEAM-USER for workspace-scoped cloud bridges, and local-whatsapp_ba_... for local bridges.
-        bridge:
-          $ref: '#/components/schemas/Bridge'
-        network:
-          type: string
-          description: Human-friendly network name for the account. Omitted when the network is unknown.
-        user:
-          $ref: '#/components/schemas/User'
-      required:
-      - accountID
-      - bridge
-      - user
-      description: A chat account added to Beeper.
-    Bridge:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Bridge instance identifier. Matrix and cloud bridges often use the bridge type (for example matrix or discordgo); local bridges use a local bridge ID (for example local-whatsapp). Available in Beeper Desktop v4.2.785+.
-        type:
-          type: string
-          description: Bridge type, such as matrix, discordgo, slackgo, whatsapp, telegram, or twitter. Available in Beeper Desktop v4.2.785+.
-        provider:
-          type: string
-          enum:
-          - cloud
-          - self-hosted
-          - local
-          - platform-sdk
-          description: Bridge provider for the account. Available in Beeper Desktop v4.2.785+.
-      required:
-      - id
-      - type
-      - provider
-      description: Bridge metadata for the account. Available in Beeper Desktop v4.2.785+.
-      x-beeper-available-since: Beeper Desktop v4.2.785+
     Error:
       type: object
       properties:
@@ -293,12 +299,6 @@ components:
       required:
       - message
       - code
-  headers:
-    X-Beeper-Desktop-Version:
-      description: Beeper Desktop application version providing this response.
-      schema:
-        type: string
-        example: 4.0.0
   securitySchemes:
     bearerAuth:
       type: http

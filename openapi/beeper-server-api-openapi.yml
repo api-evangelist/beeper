@@ -42,67 +42,6 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Error message
-        code:
-          type: string
-          description: Machine-readable error code
-        details:
-          anyOf:
-          - type: object
-            properties:
-              issues:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    code:
-                      type: string
-                      description: Validation issue code
-                      example: invalid_type
-                    message:
-                      type: string
-                      description: Human-readable description of the validation issue
-                    path:
-                      type: array
-                      items:
-                        anyOf:
-                        - type: string
-                          x-stainless-variantName: field
-                        - type: number
-                          x-stainless-variantName: index
-                      description: Path pointing to the invalid field within the payload
-                      example:
-                      - body
-                      - chatID
-                  required:
-                  - code
-                  - message
-                  - path
-                description: List of validation issues
-            required:
-            - issues
-            description: Validation error details
-            x-stainless-variantName: validation_details
-          - type: object
-            additionalProperties:
-              nullable: true
-              x-stainless-any: true
-            description: Additional error context
-            x-stainless-variantName: context
-          - nullable: true
-            description: Arbitrary details payload supplied by the server
-            x-stainless-any: true
-            x-stainless-variantName: arbitrary
-          - nullable: true
-          description: Additional error details for debugging
-      required:
-      - message
-      - code
     ConnectInfoOutput:
       type: object
       properties:
@@ -215,6 +154,67 @@ components:
       - platform
       - server
       - endpoints
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Machine-readable error code
+        details:
+          anyOf:
+          - type: object
+            properties:
+              issues:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: Validation issue code
+                      example: invalid_type
+                    message:
+                      type: string
+                      description: Human-readable description of the validation issue
+                    path:
+                      type: array
+                      items:
+                        anyOf:
+                        - type: string
+                          x-stainless-variantName: field
+                        - type: number
+                          x-stainless-variantName: index
+                      description: Path pointing to the invalid field within the payload
+                      example:
+                      - body
+                      - chatID
+                  required:
+                  - code
+                  - message
+                  - path
+                description: List of validation issues
+            required:
+            - issues
+            description: Validation error details
+            x-stainless-variantName: validation_details
+          - type: object
+            additionalProperties:
+              nullable: true
+              x-stainless-any: true
+            description: Additional error context
+            x-stainless-variantName: context
+          - nullable: true
+            description: Arbitrary details payload supplied by the server
+            x-stainless-any: true
+            x-stainless-variantName: arbitrary
+          - nullable: true
+          description: Additional error details for debugging
+      required:
+      - message
+      - code
   responses:
     InternalServerError:
       description: Internal server error
