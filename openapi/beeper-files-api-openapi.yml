@@ -198,76 +198,6 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  responses:
-    UnprocessableEntity:
-      description: Unprocessable entity - validation error
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests - rate limit exceeded
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnauthorizedError:
-      description: Access token is missing or invalid
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ForbiddenError:
-      description: Access token does not have the required scope
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Internal server error
-      headers:
-        X-Beeper-Desktop-Version:
-          $ref: '#/components/headers/X-Beeper-Desktop-Version'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  headers:
-    X-Beeper-Desktop-Version:
-      description: Beeper Desktop application version providing this response.
-      schema:
-        type: string
-        example: 4.0.0
   schemas:
     UploadAssetInput:
       type: object
@@ -286,15 +216,6 @@ components:
       required:
       - content
       description: Upload a temporary file. Upload IDs can be referenced by send-message and draft attachment requests while the temporary upload remains available.
-    DownloadAssetOutput:
-      type: object
-      properties:
-        srcURL:
-          type: string
-          description: Local file URL to the downloaded file.
-        error:
-          type: string
-          description: Error message if the download failed.
     DownloadAssetInput:
       type: object
       properties:
@@ -306,22 +227,6 @@ components:
       - url
       example:
         url: mxc://example.org/Q4x9CqGz1pB3Oa6XgJ
-    UploadAssetMultipart:
-      type: object
-      properties:
-        file:
-          type: string
-          description: The file to upload (max 500 MB).
-          format: binary
-        fileName:
-          type: string
-          description: Original filename. Defaults to the uploaded file name if omitted
-        mimeType:
-          type: string
-          description: MIME type. Auto-detected from magic bytes if omitted
-      required:
-      - file
-      description: Upload a temporary file. Upload IDs can be referenced by send-message and draft attachment requests while the temporary upload remains available.
     UploadAssetOutput:
       type: object
       properties:
@@ -352,6 +257,31 @@ components:
         error:
           type: string
           description: Error message if upload failed
+    UploadAssetMultipart:
+      type: object
+      properties:
+        file:
+          type: string
+          description: The file to upload (max 500 MB).
+          format: binary
+        fileName:
+          type: string
+          description: Original filename. Defaults to the uploaded file name if omitted
+        mimeType:
+          type: string
+          description: MIME type. Auto-detected from magic bytes if omitted
+      required:
+      - file
+      description: Upload a temporary file. Upload IDs can be referenced by send-message and draft attachment requests while the temporary upload remains available.
+    DownloadAssetOutput:
+      type: object
+      properties:
+        srcURL:
+          type: string
+          description: Local file URL to the downloaded file.
+        error:
+          type: string
+          description: Error message if the download failed.
     Error:
       type: object
       properties:
@@ -413,6 +343,76 @@ components:
       required:
       - message
       - code
+  responses:
+    InternalServerError:
+      description: Internal server error
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ForbiddenError:
+      description: Access token does not have the required scope
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Unprocessable entity - validation error
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests - rate limit exceeded
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnauthorizedError:
+      description: Access token is missing or invalid
+      headers:
+        X-Beeper-Desktop-Version:
+          $ref: '#/components/headers/X-Beeper-Desktop-Version'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  headers:
+    X-Beeper-Desktop-Version:
+      description: Beeper Desktop application version providing this response.
+      schema:
+        type: string
+        example: 4.0.0
   securitySchemes:
     bearerAuth:
       type: http

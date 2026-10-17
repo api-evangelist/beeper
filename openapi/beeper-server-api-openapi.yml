@@ -215,6 +215,12 @@ components:
       required:
       - message
       - code
+  headers:
+    X-Beeper-Desktop-Version:
+      description: Beeper Desktop application version providing this response.
+      schema:
+        type: string
+        example: 4.0.0
   responses:
     InternalServerError:
       description: Internal server error
@@ -225,12 +231,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  headers:
-    X-Beeper-Desktop-Version:
-      description: Beeper Desktop application version providing this response.
-      schema:
-        type: string
-        example: 4.0.0
   securitySchemes:
     bearerAuth:
       type: http
