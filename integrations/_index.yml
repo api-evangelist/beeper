@@ -95,3 +95,51 @@
     detected: '2026-10-18'
   status: not-a-workflow
   arazzo: null
+- slug: beeper-matrix-org-ecosystem-directory
+  label: Matrix.org ecosystem directory
+  partner: matrix
+  partner_name: Matrix.org ecosystem directory
+  category: Matrix protocol ecosystem
+  type: register
+  channel: standard-directory
+  evidence: https://matrix.org/ecosystem/bridges/line/#beeper-line
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: Matrix.org Foundation ecosystem directory (matrix.org/ecosystem)
+    standard: Matrix
+    spec_file: null
+    role: matrix-bridge
+    roles:
+    - matrix-bridge
+    registered_name: beeper, highesttt
+    register_id: https://matrix.org/ecosystem/bridges/line/#beeper-line
+    matched_domain: beeper.com
+    matched_by: domain
+    match_note: author 'beeper' + listing link www.beeper.com
+    listings:
+    - maturity: Obsolete
+      name: android-sms
+      network: SMS
+      obsolete: true
+      page: https://matrix.org/ecosystem/bridges/sms/#android-sms
+      section: bridges
+    - maturity: Stable
+      name: beeper-line
+      network: LINE
+      obsolete: false
+      page: https://matrix.org/ecosystem/bridges/line/#beeper-line
+      section: bridges
+    - maturity: Stable
+      name: mautrix-slack
+      network: Slack
+      obsolete: false
+      page: https://matrix.org/ecosystem/bridges/slack/#mautrix-slack
+      section: bridges
+    all_obsolete: false
+    signal_note: 'participation only: a listing in the Foundation''s directory (it endorses nothing, certifies nothing).
+      Roles are context; listings are never counted'
+    detected_by: sweep-matrix-ecosystem.py
+    detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null

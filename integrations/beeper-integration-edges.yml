@@ -89,6 +89,53 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
+- partner_name: Matrix.org ecosystem directory
+  partner: matrix
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://matrix.org/ecosystem/bridges/line/#beeper-line
+  category: Matrix protocol ecosystem
+  contract_reference:
+    register: Matrix.org Foundation ecosystem directory (matrix.org/ecosystem)
+    standard: Matrix
+    spec_file: null
+    role: matrix-bridge
+    roles:
+    - matrix-bridge
+    registered_name: beeper, highesttt
+    register_id: https://matrix.org/ecosystem/bridges/line/#beeper-line
+    matched_domain: beeper.com
+    matched_by: domain
+    match_note: author 'beeper' + listing link www.beeper.com
+    listings:
+    - maturity: Obsolete
+      name: android-sms
+      network: SMS
+      obsolete: true
+      page: https://matrix.org/ecosystem/bridges/sms/#android-sms
+      section: bridges
+    - maturity: Stable
+      name: beeper-line
+      network: LINE
+      obsolete: false
+      page: https://matrix.org/ecosystem/bridges/line/#beeper-line
+      section: bridges
+    - maturity: Stable
+      name: mautrix-slack
+      network: Slack
+      obsolete: false
+      page: https://matrix.org/ecosystem/bridges/slack/#mautrix-slack
+      section: bridges
+    all_obsolete: false
+    signal_note: 'participation only: a listing in the Foundation''s directory (it endorses nothing, certifies nothing).
+      Roles are context; listings are never counted'
+    detected_by: sweep-matrix-ecosystem.py
+    detected: '2026-10-23'
+  detected_by: sweep-matrix-ecosystem.py
+  first_seen: '2026-10-23'
 generated: '2026-10-18'
 method: searched
 source:
@@ -107,3 +154,11 @@ checked:
 - https://registry.npmjs.org
 - https://repo1.maven.org/maven2
 - https://rubygems.org/api/v1
+- https://matrix.org/ecosystem/
+- https://matrix.org/ecosystem/bridges/
+- https://matrix.org/ecosystem/clients/
+- https://matrix.org/ecosystem/distributions/
+- https://matrix.org/ecosystem/hosting/
+- https://matrix.org/ecosystem/integrations/
+- https://matrix.org/ecosystem/sdks/
+- https://matrix.org/ecosystem/servers/
