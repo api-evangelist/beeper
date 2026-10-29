@@ -64,6 +64,150 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Beeper is a company surfaced as a portfolio company of initialized-capital and added to the API Evangelist network as a stub for enrichment. Sector: consumer. This profile is a lead awaiting the enrichment pipeline.
+Beeper is a universal chat app that brings 12+ messaging networks — WhatsApp, Instagram, Telegram, Signal, Messenger, X, Google Messages, Google Chat, Google Voice, LinkedIn, Discord and Slack — into a single unified inbox across macOS, Windows, Linux, iOS and Android. Built on the Matrix protocol and owned by Automattic, Beeper connects to networks on-device for privacy. For developers Beeper ships the Beeper Desktop API: a local-first REST API and built-in Model Context Protocol (MCP) server that runs entirely on the user's machine, letting agents and apps search chats, read and send messages, react, manage reminders and control the app. Official SDKs are published for JavaScript, Python, Go and PHP, alongside bridges for self-hosting and Android intents/content-providers.
 
-Backed by: initialized-capital — https://beeper.com/
+**Areas:** Company · Consumer · Messaging · Chat · Communications · Matrix · MCP · Desktop · Aggregator · Real-Time
+
+## Beeper on APIs.io
+
+Everything profiled for Beeper is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/beeper/](https://apis.io/providers/beeper/)** — or go straight to one of the APIs or properties below.
+
+### APIs (7)
+
+- [Beeper Accounts API](https://apis.io/apis/beeper/beeper-accounts-api/) — Chat Accounts connected to this Beeper Desktop instance. Each Account owns a bridge and network.
+- [Beeper App API](https://apis.io/apis/beeper/beeper-app-api/) — Top-level actions: focus the app window, jump to a chat, or run unified search across chats and messages.
+- [Beeper Chats API](https://apis.io/apis/beeper/beeper-chats-api/) — Chats, reminders, read state, archive state, priority, mute, and other conversation metadata.
+- [Beeper Contacts API](https://apis.io/apis/beeper/beeper-contacts-api/) — Per-account address book and network lookup. The same person can appear under multiple Accounts.
+- [Beeper Files API](https://apis.io/apis/beeper/beeper-files-api/) — File upload, download, and streaming helpers for message attachments and drafts.
+- [Beeper Messages API](https://apis.io/apis/beeper/beeper-messages-api/) — Messages inside a Chat: list, search, send, retrieve, edit, delete, and react.
+- [Beeper Server API](https://apis.io/apis/beeper/beeper-server-api/) — Server discovery and capability metadata. Use /v1/info before authentication setup.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Beeper Desktop API - Live Events](https://apis.io/asyncapis/beeper/beeper-events-asyncapi/)
+
+#### Event channels (1)
+
+Individual events and webhooks the provider emits.
+
+- [/v1/ws](https://apis.io/channels/beeper/v1-ws/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [beeper](https://apis.io/servers/beeper/beeper/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Beeper Agentic Access](https://apis.io/agentic-access/beeper/beeper-agentic-access/)
+
+#### Collections (7)
+
+Postman and Open Collection request collections.
+
+- [Beeper Desktop Accounts API](https://apis.io/collections/beeper/open-beeper-accounts-api/)
+- [Beeper Desktop Accounts App API](https://apis.io/collections/beeper/open-beeper-app-api/)
+- [Beeper Desktop Accounts Chats API](https://apis.io/collections/beeper/open-beeper-chats-api/)
+- [Beeper Desktop Accounts Contacts API](https://apis.io/collections/beeper/open-beeper-contacts-api/)
+- [Beeper Desktop Accounts Files API](https://apis.io/collections/beeper/open-beeper-files-api/)
+- [Beeper Desktop Accounts Messages API](https://apis.io/collections/beeper/open-beeper-messages-api/)
+- [Beeper Desktop Accounts Server API](https://apis.io/collections/beeper/open-beeper-server-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Beeper Desktop Api Overlay](https://apis.io/overlays/beeper/beeper-desktop-api-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Beeper Authentication](https://apis.io/security/beeper/beeper-authentication/)
+- [Beeper Domain Security](https://apis.io/security/beeper/beeper-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Beeper Scopes](https://apis.io/scopes/beeper/beeper-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://beeper.com/)
+- [Documentation](https://developers.beeper.com/desktop-api/)
+- [Getting started](https://developers.beeper.com/desktop-api/)
+- [API reference](https://developers.beeper.com/desktop-api-reference/)
+- [Sign up](https://www.beeper.com/download)
+- [Support](https://help.beeper.com/)
+- [Blog](https://blog.beeper.com/)
+- [Terms of service](https://www.beeper.com/terms)
+- [Privacy policy](https://www.beeper.com/privacy)
+- [GitHub](https://github.com/beeper)
+- [Status](https://beeperstatus.com/)
+
+## API Evangelist rating
+
+**Kin Score 45.8** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 64.3 |
+| Contract quality | 52.9 |
+| Contract governance | 4.5 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 34.2 |
+
+**Agent readiness 27.0** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | — |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 34.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/beeper/](https://apis.io/providers/beeper/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Beeper: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/beeper/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
